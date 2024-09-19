@@ -1,0 +1,3 @@
+# Hashes of file build rules.
+e5394d9ad6323d6cdb8235475b690efa CMakeFiles/SimpleChessTournament_autogen
+c90627275f2df58a6b3e4ac707673fe8 SimpleChessTournament_autogen/timestamp
