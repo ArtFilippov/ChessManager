@@ -7,7 +7,7 @@
 				{
 					"build" : ".",
 					"hasInstallRule" : true,
-					"jsonFile" : "directory-.-Debug-1a142f981b16f974c9d2.json",
+					"jsonFile" : "directory-.-Debug-56d57f3a0489076e8755.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.5"
@@ -44,7 +44,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "SimpleChessTournament::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-SimpleChessTournament-Debug-c5080edc5e87c3a73989.json",
+					"jsonFile" : "target-SimpleChessTournament-Debug-a7927191e2b58c761ec4.json",
 					"name" : "SimpleChessTournament",
 					"projectIndex" : 0
 				},

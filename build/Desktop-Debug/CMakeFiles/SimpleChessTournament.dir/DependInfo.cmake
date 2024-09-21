@@ -10,9 +10,11 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "" "SimpleChessTournament_autogen/timestamp" "custom" "SimpleChessTournament_autogen/deps"
   "/home/user/SimpleChessTournament/build/Desktop-Debug/SimpleChessTournament_autogen/mocs_compilation.cpp" "CMakeFiles/SimpleChessTournament.dir/SimpleChessTournament_autogen/mocs_compilation.cpp.o" "gcc" "CMakeFiles/SimpleChessTournament.dir/SimpleChessTournament_autogen/mocs_compilation.cpp.o.d"
+  "/home/user/SimpleChessTournament/chesstournament.cpp" "CMakeFiles/SimpleChessTournament.dir/chesstournament.cpp.o" "gcc" "CMakeFiles/SimpleChessTournament.dir/chesstournament.cpp.o.d"
   "/home/user/SimpleChessTournament/main.cpp" "CMakeFiles/SimpleChessTournament.dir/main.cpp.o" "gcc" "CMakeFiles/SimpleChessTournament.dir/main.cpp.o.d"
   "/home/user/SimpleChessTournament/mainwindow.cpp" "CMakeFiles/SimpleChessTournament.dir/mainwindow.cpp.o" "gcc" "CMakeFiles/SimpleChessTournament.dir/mainwindow.cpp.o.d"
   "/home/user/SimpleChessTournament/player.cpp" "CMakeFiles/SimpleChessTournament.dir/player.cpp.o" "gcc" "CMakeFiles/SimpleChessTournament.dir/player.cpp.o.d"
+  "/home/user/SimpleChessTournament/view.cpp" "CMakeFiles/SimpleChessTournament.dir/view.cpp.o" "gcc" "CMakeFiles/SimpleChessTournament.dir/view.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

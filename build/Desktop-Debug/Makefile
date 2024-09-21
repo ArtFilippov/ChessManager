@@ -224,6 +224,30 @@ SimpleChessTournament_autogen/mocs_compilation.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleChessTournament.dir/build.make CMakeFiles/SimpleChessTournament.dir/SimpleChessTournament_autogen/mocs_compilation.cpp.s
 .PHONY : SimpleChessTournament_autogen/mocs_compilation.cpp.s
 
+chesstournament.o: chesstournament.cpp.o
+.PHONY : chesstournament.o
+
+# target to build an object file
+chesstournament.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleChessTournament.dir/build.make CMakeFiles/SimpleChessTournament.dir/chesstournament.cpp.o
+.PHONY : chesstournament.cpp.o
+
+chesstournament.i: chesstournament.cpp.i
+.PHONY : chesstournament.i
+
+# target to preprocess a source file
+chesstournament.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleChessTournament.dir/build.make CMakeFiles/SimpleChessTournament.dir/chesstournament.cpp.i
+.PHONY : chesstournament.cpp.i
+
+chesstournament.s: chesstournament.cpp.s
+.PHONY : chesstournament.s
+
+# target to generate assembly for a file
+chesstournament.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleChessTournament.dir/build.make CMakeFiles/SimpleChessTournament.dir/chesstournament.cpp.s
+.PHONY : chesstournament.cpp.s
+
 main.o: main.cpp.o
 .PHONY : main.o
 
@@ -296,6 +320,30 @@ player.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleChessTournament.dir/build.make CMakeFiles/SimpleChessTournament.dir/player.cpp.s
 .PHONY : player.cpp.s
 
+view.o: view.cpp.o
+.PHONY : view.o
+
+# target to build an object file
+view.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleChessTournament.dir/build.make CMakeFiles/SimpleChessTournament.dir/view.cpp.o
+.PHONY : view.cpp.o
+
+view.i: view.cpp.i
+.PHONY : view.i
+
+# target to preprocess a source file
+view.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleChessTournament.dir/build.make CMakeFiles/SimpleChessTournament.dir/view.cpp.i
+.PHONY : view.cpp.i
+
+view.s: view.cpp.s
+.PHONY : view.s
+
+# target to generate assembly for a file
+view.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleChessTournament.dir/build.make CMakeFiles/SimpleChessTournament.dir/view.cpp.s
+.PHONY : view.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -314,6 +362,9 @@ help:
 	@echo "... SimpleChessTournament_autogen/mocs_compilation.o"
 	@echo "... SimpleChessTournament_autogen/mocs_compilation.i"
 	@echo "... SimpleChessTournament_autogen/mocs_compilation.s"
+	@echo "... chesstournament.o"
+	@echo "... chesstournament.i"
+	@echo "... chesstournament.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
@@ -323,6 +374,9 @@ help:
 	@echo "... player.o"
 	@echo "... player.i"
 	@echo "... player.s"
+	@echo "... view.o"
+	@echo "... view.i"
+	@echo "... view.s"
 .PHONY : help
 
 

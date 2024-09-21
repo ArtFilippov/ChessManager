@@ -132,12 +132,42 @@ CMakeFiles/SimpleChessTournament.dir/player.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/SimpleChessTournament.dir/player.cpp.s"
 	/usr/bin/g++-14 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/user/SimpleChessTournament/player.cpp -o CMakeFiles/SimpleChessTournament.dir/player.cpp.s
 
+CMakeFiles/SimpleChessTournament.dir/chesstournament.cpp.o: CMakeFiles/SimpleChessTournament.dir/flags.make
+CMakeFiles/SimpleChessTournament.dir/chesstournament.cpp.o: /home/user/SimpleChessTournament/chesstournament.cpp
+CMakeFiles/SimpleChessTournament.dir/chesstournament.cpp.o: CMakeFiles/SimpleChessTournament.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/user/SimpleChessTournament/build/Desktop-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/SimpleChessTournament.dir/chesstournament.cpp.o"
+	/usr/bin/g++-14 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SimpleChessTournament.dir/chesstournament.cpp.o -MF CMakeFiles/SimpleChessTournament.dir/chesstournament.cpp.o.d -o CMakeFiles/SimpleChessTournament.dir/chesstournament.cpp.o -c /home/user/SimpleChessTournament/chesstournament.cpp
+
+CMakeFiles/SimpleChessTournament.dir/chesstournament.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/SimpleChessTournament.dir/chesstournament.cpp.i"
+	/usr/bin/g++-14 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/user/SimpleChessTournament/chesstournament.cpp > CMakeFiles/SimpleChessTournament.dir/chesstournament.cpp.i
+
+CMakeFiles/SimpleChessTournament.dir/chesstournament.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/SimpleChessTournament.dir/chesstournament.cpp.s"
+	/usr/bin/g++-14 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/user/SimpleChessTournament/chesstournament.cpp -o CMakeFiles/SimpleChessTournament.dir/chesstournament.cpp.s
+
+CMakeFiles/SimpleChessTournament.dir/view.cpp.o: CMakeFiles/SimpleChessTournament.dir/flags.make
+CMakeFiles/SimpleChessTournament.dir/view.cpp.o: /home/user/SimpleChessTournament/view.cpp
+CMakeFiles/SimpleChessTournament.dir/view.cpp.o: CMakeFiles/SimpleChessTournament.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/user/SimpleChessTournament/build/Desktop-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/SimpleChessTournament.dir/view.cpp.o"
+	/usr/bin/g++-14 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SimpleChessTournament.dir/view.cpp.o -MF CMakeFiles/SimpleChessTournament.dir/view.cpp.o.d -o CMakeFiles/SimpleChessTournament.dir/view.cpp.o -c /home/user/SimpleChessTournament/view.cpp
+
+CMakeFiles/SimpleChessTournament.dir/view.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/SimpleChessTournament.dir/view.cpp.i"
+	/usr/bin/g++-14 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/user/SimpleChessTournament/view.cpp > CMakeFiles/SimpleChessTournament.dir/view.cpp.i
+
+CMakeFiles/SimpleChessTournament.dir/view.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/SimpleChessTournament.dir/view.cpp.s"
+	/usr/bin/g++-14 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/user/SimpleChessTournament/view.cpp -o CMakeFiles/SimpleChessTournament.dir/view.cpp.s
+
 # Object files for target SimpleChessTournament
 SimpleChessTournament_OBJECTS = \
 "CMakeFiles/SimpleChessTournament.dir/SimpleChessTournament_autogen/mocs_compilation.cpp.o" \
 "CMakeFiles/SimpleChessTournament.dir/main.cpp.o" \
 "CMakeFiles/SimpleChessTournament.dir/mainwindow.cpp.o" \
-"CMakeFiles/SimpleChessTournament.dir/player.cpp.o"
+"CMakeFiles/SimpleChessTournament.dir/player.cpp.o" \
+"CMakeFiles/SimpleChessTournament.dir/chesstournament.cpp.o" \
+"CMakeFiles/SimpleChessTournament.dir/view.cpp.o"
 
 # External object files for target SimpleChessTournament
 SimpleChessTournament_EXTERNAL_OBJECTS =
@@ -146,12 +176,14 @@ SimpleChessTournament: CMakeFiles/SimpleChessTournament.dir/SimpleChessTournamen
 SimpleChessTournament: CMakeFiles/SimpleChessTournament.dir/main.cpp.o
 SimpleChessTournament: CMakeFiles/SimpleChessTournament.dir/mainwindow.cpp.o
 SimpleChessTournament: CMakeFiles/SimpleChessTournament.dir/player.cpp.o
+SimpleChessTournament: CMakeFiles/SimpleChessTournament.dir/chesstournament.cpp.o
+SimpleChessTournament: CMakeFiles/SimpleChessTournament.dir/view.cpp.o
 SimpleChessTournament: CMakeFiles/SimpleChessTournament.dir/build.make
 SimpleChessTournament: /usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5.15.13
 SimpleChessTournament: /usr/lib/x86_64-linux-gnu/libQt5Gui.so.5.15.13
 SimpleChessTournament: /usr/lib/x86_64-linux-gnu/libQt5Core.so.5.15.13
 SimpleChessTournament: CMakeFiles/SimpleChessTournament.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/user/SimpleChessTournament/build/Desktop-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable SimpleChessTournament"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/user/SimpleChessTournament/build/Desktop-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable SimpleChessTournament"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/SimpleChessTournament.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

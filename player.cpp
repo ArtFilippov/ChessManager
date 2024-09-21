@@ -12,6 +12,7 @@ void Player::add_game_result(ptr opponent, float result, int color)
     elo_ = calculate_new_elo(opponent, result);
     points += result;
     players.push_back(opponent);
+    games.insert({opponent->get_name(), std::tuple{opponent, result, color}});
 }
 
 float Player::get_points()
@@ -42,8 +43,17 @@ float Player::berger()
     return b;
 }
 
+bool Player::is_played_with(ptr opponent)
+{
+    return games.contains(opponent->get_name());
+}
+
 float Player::result_of_game_with(ptr opponent)
 {
+    if (!is_played_with(opponent)) {
+        return 0;
+    }
+
     return std::get<1>(games[opponent->get_name()]);
 }
 

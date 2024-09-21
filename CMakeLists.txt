@@ -6,7 +6,7 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
@@ -39,6 +39,8 @@ else()
         add_executable(SimpleChessTournament
             ${PROJECT_SOURCES}
             player.h player.cpp
+            chesstournament.h chesstournament.cpp
+            view.h view.cpp
         )
     endif()
 endif()

@@ -17,6 +17,7 @@ public:
 
     void add_game_result(ptr opponent, float result, int color);
     float result_of_game_with(ptr opponent);
+    bool is_played_with(ptr opponent);
     float buchholz(int truncation);
     float berger();
 
@@ -24,7 +25,7 @@ public:
     float get_points();
     int get_elo();
 private:
-    int calculate_new_elo(ptr opponent);
+    int calculate_new_elo(ptr opponent, float result);
 private:
     std::string name_;
     int elo_;

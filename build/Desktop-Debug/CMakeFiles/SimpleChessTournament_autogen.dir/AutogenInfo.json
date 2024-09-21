@@ -77,6 +77,12 @@
 	"HEADERS" : 
 	[
 		[
+			"/home/user/SimpleChessTournament/chesstournament.h",
+			"MU",
+			"EWIEGA46WW/moc_chesstournament.cpp",
+			null
+		],
+		[
 			"/home/user/SimpleChessTournament/mainwindow.h",
 			"MU",
 			"EWIEGA46WW/moc_mainwindow.cpp",
@@ -86,6 +92,12 @@
 			"/home/user/SimpleChessTournament/player.h",
 			"MU",
 			"EWIEGA46WW/moc_player.cpp",
+			null
+		],
+		[
+			"/home/user/SimpleChessTournament/view.h",
+			"MU",
+			"EWIEGA46WW/moc_view.cpp",
 			null
 		]
 	],
@@ -121,7 +133,7 @@
 	"MOC_PREDEFS_CMD" : 
 	[
 		"/usr/bin/g++-14",
-		"-std=gnu++17",
+		"-std=gnu++20",
 		"-dM",
 		"-E",
 		"-c",
@@ -140,9 +152,11 @@
 	"SETTINGS_FILE" : "/home/user/SimpleChessTournament/build/Desktop-Debug/CMakeFiles/SimpleChessTournament_autogen.dir/AutogenUsed.txt",
 	"SOURCES" : 
 	[
+		[ "/home/user/SimpleChessTournament/chesstournament.cpp", "MU", null ],
 		[ "/home/user/SimpleChessTournament/main.cpp", "MU", null ],
 		[ "/home/user/SimpleChessTournament/mainwindow.cpp", "MU", null ],
-		[ "/home/user/SimpleChessTournament/player.cpp", "MU", null ]
+		[ "/home/user/SimpleChessTournament/player.cpp", "MU", null ],
+		[ "/home/user/SimpleChessTournament/view.cpp", "MU", null ]
 	],
 	"UIC_OPTIONS" : [],
 	"UIC_SEARCH_PATHS" : [],
