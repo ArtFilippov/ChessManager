@@ -1,11 +1,16 @@
 #include "chesstournament.h"
 
 #include <algorithm>
+#include <exception>
 
-ChessTournament::ChessTournament(IView::ptr view, std::vector<Player::ptr> players, int total_rounds) : view_(view), players_(players), total_rounds_(total_rounds) {}
+ChessTournament::ChessTournament(IView::ptr view, int total_rounds) : view_(view), total_rounds_(total_rounds) {}
 
 void ChessTournament::add_player(Player::ptr player)
 {
+    auto p = std::find_if(players_.begin(), players_.end(), [player](Player::ptr a) { return a->get_name() == player->get_name();});
+    if (p != players_.end()) {
+        throw std::invalid_argument("this player is already exists");
+    }
     players_.push_back(player);
 }
 
@@ -15,7 +20,7 @@ void ChessTournament::remove_player(Player::ptr player)
 }
 
 // RoundTournament
-RoundTournament::RoundTournament(IView::ptr view, std::vector<Player::ptr> players) : ChessTournament(view, players, players.size() - 1 + players.size() % 2) {}
+RoundTournament::RoundTournament(IView::ptr view) : ChessTournament(view, 0) {}
 
 void RoundTournament::add_player(Player::ptr player)
 {
@@ -85,4 +90,19 @@ void RoundTournament::standings()
     }
 
     view_->show_standings(player_and_coeff);
+}
+
+//SwissTournament
+SwissTournament::SwissTournament(IView::ptr view) : ChessTournament(view, 0) {}
+
+SwissTournament::SwissTournament(IView::ptr view, int total_rounds) : ChessTournament(view, total_rounds) {}
+
+void SwissTournament::make_pairs()
+{
+
+}
+
+void SwissTournament::standings()
+{
+
 }

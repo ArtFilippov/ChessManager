@@ -248,6 +248,78 @@ chesstournament.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleChessTournament.dir/build.make CMakeFiles/SimpleChessTournament.dir/chesstournament.cpp.s
 .PHONY : chesstournament.cpp.s
 
+controller.o: controller.cpp.o
+.PHONY : controller.o
+
+# target to build an object file
+controller.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleChessTournament.dir/build.make CMakeFiles/SimpleChessTournament.dir/controller.cpp.o
+.PHONY : controller.cpp.o
+
+controller.i: controller.cpp.i
+.PHONY : controller.i
+
+# target to preprocess a source file
+controller.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleChessTournament.dir/build.make CMakeFiles/SimpleChessTournament.dir/controller.cpp.i
+.PHONY : controller.cpp.i
+
+controller.s: controller.cpp.s
+.PHONY : controller.s
+
+# target to generate assembly for a file
+controller.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleChessTournament.dir/build.make CMakeFiles/SimpleChessTournament.dir/controller.cpp.s
+.PHONY : controller.cpp.s
+
+line.o: line.cpp.o
+.PHONY : line.o
+
+# target to build an object file
+line.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleChessTournament.dir/build.make CMakeFiles/SimpleChessTournament.dir/line.cpp.o
+.PHONY : line.cpp.o
+
+line.i: line.cpp.i
+.PHONY : line.i
+
+# target to preprocess a source file
+line.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleChessTournament.dir/build.make CMakeFiles/SimpleChessTournament.dir/line.cpp.i
+.PHONY : line.cpp.i
+
+line.s: line.cpp.s
+.PHONY : line.s
+
+# target to generate assembly for a file
+line.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleChessTournament.dir/build.make CMakeFiles/SimpleChessTournament.dir/line.cpp.s
+.PHONY : line.cpp.s
+
+linebutton.o: linebutton.cpp.o
+.PHONY : linebutton.o
+
+# target to build an object file
+linebutton.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleChessTournament.dir/build.make CMakeFiles/SimpleChessTournament.dir/linebutton.cpp.o
+.PHONY : linebutton.cpp.o
+
+linebutton.i: linebutton.cpp.i
+.PHONY : linebutton.i
+
+# target to preprocess a source file
+linebutton.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleChessTournament.dir/build.make CMakeFiles/SimpleChessTournament.dir/linebutton.cpp.i
+.PHONY : linebutton.cpp.i
+
+linebutton.s: linebutton.cpp.s
+.PHONY : linebutton.s
+
+# target to generate assembly for a file
+linebutton.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleChessTournament.dir/build.make CMakeFiles/SimpleChessTournament.dir/linebutton.cpp.s
+.PHONY : linebutton.cpp.s
+
 main.o: main.cpp.o
 .PHONY : main.o
 
@@ -365,6 +437,15 @@ help:
 	@echo "... chesstournament.o"
 	@echo "... chesstournament.i"
 	@echo "... chesstournament.s"
+	@echo "... controller.o"
+	@echo "... controller.i"
+	@echo "... controller.s"
+	@echo "... line.o"
+	@echo "... line.i"
+	@echo "... line.s"
+	@echo "... linebutton.o"
+	@echo "... linebutton.i"
+	@echo "... linebutton.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

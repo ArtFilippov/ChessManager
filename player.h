@@ -11,6 +11,7 @@ class Player
 {   
 public:
     typedef std::shared_ptr<Player> ptr;
+    typedef std::weak_ptr<Player> wptr;
     enum {BLACK, WHITE};
 
     Player(std::string name, int elo = 1000);
@@ -33,8 +34,8 @@ private:
     float last_result;
     int last_color;
 
-    std::vector<ptr> players;
-    std::map<std::string, std::tuple<ptr, float, int>> games; // <name, <Player, result, color>>
+    std::vector<wptr> players;
+    std::map<std::string, std::tuple<wptr, float, int>> games; // <name, <Player, result, color>>
 };
 
 #endif // PLAYER_H

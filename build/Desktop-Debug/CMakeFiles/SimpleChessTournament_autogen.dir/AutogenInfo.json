@@ -83,6 +83,24 @@
 			null
 		],
 		[
+			"/home/user/SimpleChessTournament/controller.h",
+			"MU",
+			"EWIEGA46WW/moc_controller.cpp",
+			null
+		],
+		[
+			"/home/user/SimpleChessTournament/line.h",
+			"MU",
+			"EWIEGA46WW/moc_line.cpp",
+			null
+		],
+		[
+			"/home/user/SimpleChessTournament/linebutton.h",
+			"MU",
+			"EWIEGA46WW/moc_linebutton.cpp",
+			null
+		],
+		[
 			"/home/user/SimpleChessTournament/mainwindow.h",
 			"MU",
 			"EWIEGA46WW/moc_mainwindow.cpp",
@@ -153,6 +171,9 @@
 	"SOURCES" : 
 	[
 		[ "/home/user/SimpleChessTournament/chesstournament.cpp", "MU", null ],
+		[ "/home/user/SimpleChessTournament/controller.cpp", "MU", null ],
+		[ "/home/user/SimpleChessTournament/line.cpp", "MU", null ],
+		[ "/home/user/SimpleChessTournament/linebutton.cpp", "MU", null ],
 		[ "/home/user/SimpleChessTournament/main.cpp", "MU", null ],
 		[ "/home/user/SimpleChessTournament/mainwindow.cpp", "MU", null ],
 		[ "/home/user/SimpleChessTournament/player.cpp", "MU", null ],

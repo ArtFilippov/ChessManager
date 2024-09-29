@@ -41,6 +41,10 @@ else()
             player.h player.cpp
             chesstournament.h chesstournament.cpp
             view.h view.cpp
+
+            line.h line.cpp
+            controller.h controller.cpp
+            linebutton.h linebutton.cpp
         )
     endif()
 endif()

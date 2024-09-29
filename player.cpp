@@ -11,8 +11,8 @@ void Player::add_game_result(ptr opponent, float result, int color)
     last_result = result;
     elo_ = calculate_new_elo(opponent, result);
     points += result;
-    players.push_back(opponent);
-    games.insert({opponent->get_name(), std::tuple{opponent, result, color}});
+    players.push_back(wptr(opponent));
+    games.insert({opponent->get_name(), std::tuple{wptr(opponent), result, color}});
 }
 
 float Player::get_points()
@@ -22,12 +22,12 @@ float Player::get_points()
 
 float Player::buchholz(int truncation)
 {
-    std::sort(players.begin(), players.end(), [](ptr p1, ptr p2){return p1->get_points() < p1->get_points() - p1->get_points() > p1->get_points();});
+    std::sort(players.begin(), players.end(), [](wptr p1, wptr p2){return p1.lock()->get_points() < p1.lock()->get_points() - p1.lock()->get_points() > p1.lock()->get_points();});
 
 
     float b = 0;
     for (std::size_t i = truncation; i < players.size(); ++i) {
-        b += players[i]->get_points();
+        b += players[i].lock()->get_points();
     }
 
     return b;
@@ -37,7 +37,7 @@ float Player::berger()
 {
     float b = 0;
     for (auto x : players) {
-        b += x->get_points() * result_of_game_with(x);
+        b += x.lock()->get_points() * result_of_game_with(x.lock());
     }
 
     return b;
