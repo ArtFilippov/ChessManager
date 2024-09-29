@@ -17,7 +17,7 @@ Controller::Controller(QWidget *parent) : QWidget(parent), view(new View(this, "
     settings->addWidget(new QLabel("rounds"));
 
     QPushButton *start = new QPushButton("start");
-    connect(start, SIGNAL(clicked()), this, SLOT(start_tournament()));
+    connect(start, SIGNAL(clicked()), this, SLOT(new_tournament()));
     buttons->addWidget(start);
 
     viewport->setWidgetResizable(true);
@@ -31,7 +31,7 @@ Controller::Controller(QWidget *parent) : QWidget(parent), view(new View(this, "
     this->setLayout(layout);
 }
 
-void Controller::start_tournament()
+void Controller::new_tournament()
 {
     if (system->currentText() == "Swiss") {
         if (total_rounds->currentText() == "auto") {
@@ -42,6 +42,13 @@ void Controller::start_tournament()
     } else if (system->currentText() == "Round") {
         tournament = ChessTournament::ptr(new RoundTournament(view));
     }
+
+    QPushButton *done = new QPushButton("done");
+    connect(done, SIGNAL(clicked()), this, SLOT(start_tournament()));
+    auto *old = buttons->itemAt(0)->widget();
+
+    buttons->replaceWidget(old, done);
+    delete old;
 
     view->start_adding_players();
 }
@@ -60,4 +67,10 @@ void Controller::add_player(Player::ptr player)
 void Controller::remove_player(Player::ptr player)
 {
     tournament->remove_player(player);
+}
+
+
+void Controller::start_tournament()
+{
+
 }
