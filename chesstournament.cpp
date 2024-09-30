@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <exception>
 
-ChessTournament::ChessTournament(IView::ptr view, int total_rounds) : view_(view), total_rounds_(total_rounds) {}
+ChessTournament::ChessTournament(IView *view, int total_rounds) : view_(view), total_rounds_(total_rounds) {}
 
 void ChessTournament::add_player(Player::ptr player)
 {
@@ -20,7 +20,7 @@ void ChessTournament::remove_player(Player::ptr player)
 }
 
 // RoundTournament
-RoundTournament::RoundTournament(IView::ptr view) : ChessTournament(view, 0) {}
+RoundTournament::RoundTournament(IView *view) : ChessTournament(view, 0) {}
 
 void RoundTournament::add_player(Player::ptr player)
 {
@@ -93,9 +93,9 @@ void RoundTournament::standings()
 }
 
 //SwissTournament
-SwissTournament::SwissTournament(IView::ptr view) : ChessTournament(view, 0) {}
+SwissTournament::SwissTournament(IView *view) : ChessTournament(view, 0) {}
 
-SwissTournament::SwissTournament(IView::ptr view, int total_rounds) : ChessTournament(view, total_rounds) {}
+SwissTournament::SwissTournament(IView *view, int total_rounds) : ChessTournament(view, total_rounds) {}
 
 void SwissTournament::make_pairs()
 {

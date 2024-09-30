@@ -1,7 +1,5 @@
 #include "line.h"
 
-
-
 TextLine::TextLine(QWidget *parent, std::string s) : Line(parent)
 {
     row.push_back(dynamic_cast<QWidget*>(new QLabel(QString::fromStdString(s))));

@@ -12,7 +12,7 @@ class Controller : public QWidget
     Q_OBJECT
 
     ChessTournament::ptr tournament{nullptr};
-    IView::ptr view;
+    IView *view;
 
     QHBoxLayout *settings;
     QScrollArea *viewport;

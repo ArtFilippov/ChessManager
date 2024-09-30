@@ -4,7 +4,7 @@
 
 #include <algorithm>
 
-View::View(QWidget *controller, std::string instruction) : layout(new QVBoxLayout), controller_(controller)
+View::View(QWidget *controller, std::string instruction) : layout(new QVBoxLayout(this)), controller_(controller)
 {
     lines.push_back(Line::ptr(new TextLine(this, instruction)));
 
@@ -17,7 +17,6 @@ View::View(QWidget *controller, std::string instruction) : layout(new QVBoxLayou
 
     this->setLayout(layout);
 }
-
 
 
 void View::start_adding_players()
@@ -39,7 +38,7 @@ QWidget* View::widget()
 void View::clear_rows()
 {
     for (size_t i = 0; i < lines.size(); ++i) {
-        layout->takeAt(i);
+        delete layout->takeAt(0);
     }
 
     lines.clear();
@@ -71,6 +70,7 @@ void View::remove_line(Player::ptr player)
         if (lines[i]->off()->get_name() == player->get_name()) {
             auto wid = layout->takeAt(i);
             wid->widget()->close();
+            delete wid;
             lines.erase(lines.begin() + i);
             return;
         }

@@ -1,10 +1,10 @@
 #ifndef REGLINE_H
 #define REGLINE_H
 
-#include <QtWidgets>
+
 #include "player.h"
 
-#include <QWidget>
+#include <QtWidgets>
 
 #include <vector>
 #include <string>
@@ -21,7 +21,7 @@ protected:
 
 public:
     typedef std::shared_ptr<Line> ptr;
-    Line(QWidget *parent) : QWidget(parent), layout(new QHBoxLayout) {}
+    Line(QWidget *parent) : QWidget(parent), layout(new QHBoxLayout(this)) {}
 
     void on_row()
     {
@@ -30,17 +30,16 @@ public:
                 QString data = text->toPlainText();
                 QWidget *new_widget = new QLabel(data);
 
-                QWidget *old_widget = layout->itemAt(i)->widget();
-                layout->replaceWidget(old_widget, new_widget);
-
-                delete old_widget;
+                auto *old = layout->itemAt(i);
+                layout->replaceWidget(old->widget(), new_widget);
+                old->widget()->close();
+                delete old;
             }
         }
 
         layout->update();
     }
 
-    virtual ~Line() = default;
     virtual Player::ptr on() = 0;
     virtual Player::ptr off() = 0;
 

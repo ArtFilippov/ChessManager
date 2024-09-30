@@ -80,8 +80,8 @@ clean: CMakeFiles/SimpleChessTournament_autogen.dir/clean
 # Target rules for target CMakeFiles/SimpleChessTournament.dir
 
 # All Build rule for target.
-CMakeFiles/SimpleChessTournament.dir/all: CMakeFiles/SimpleChessTournament_autogen.dir/all
 CMakeFiles/SimpleChessTournament.dir/all: CMakeFiles/SimpleChessTournament_autogen_timestamp_deps.dir/all
+CMakeFiles/SimpleChessTournament.dir/all: CMakeFiles/SimpleChessTournament_autogen.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleChessTournament.dir/build.make CMakeFiles/SimpleChessTournament.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleChessTournament.dir/build.make CMakeFiles/SimpleChessTournament.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/user/SimpleChessTournament/build/Desktop-Debug/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11 "Built target SimpleChessTournament"

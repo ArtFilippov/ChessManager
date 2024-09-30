@@ -9,14 +9,14 @@
 class ChessTournament
 {
 protected:
-    IView::ptr view_;
+    IView *view_;
     std::vector<Player::ptr> players_{};
     int total_rounds_;
     int round{};
 public:
     typedef std::shared_ptr<ChessTournament> ptr;
 
-    ChessTournament(IView::ptr view, int total_rounds);
+    ChessTournament(IView *view, int total_rounds);
     virtual ~ChessTournament() = default;
 
     virtual void add_player(Player::ptr player);
@@ -29,8 +29,8 @@ public:
 class SwissTournament : public ChessTournament
 {
 public:
-    SwissTournament(IView::ptr view, int total_rounds);
-    SwissTournament(IView::ptr view);
+    SwissTournament(IView *view, int total_rounds);
+    SwissTournament(IView *view);
 
     void make_pairs() override;
     void standings() override;
@@ -39,7 +39,7 @@ public:
 class RoundTournament : public ChessTournament
 {
 public:
-    RoundTournament(IView::ptr view);
+    RoundTournament(IView *view);
 
     void add_player(Player::ptr player) override;
     void remove_player(Player::ptr player) override;

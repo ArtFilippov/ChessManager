@@ -1,7 +1,7 @@
 #include "linebutton.h"
 
 
-LineButton::LineButton(QWidget *controller, QWidget *view, Line::ptr line) : button(new QPushButton("+", this)), line_(line)
+LineButton::LineButton(QWidget *controller, QWidget *view, Line::ptr line) : button(new QPushButton("+")), line_(line)
 {
     button->setFixedSize(50, 50);
 
@@ -11,7 +11,7 @@ LineButton::LineButton(QWidget *controller, QWidget *view, Line::ptr line) : but
     line_->setFixedHeight(line_->fontMetrics().lineSpacing() * 2.7);
     layout->addWidget(line_->widget());
 
-    setLayout(layout);
+    this->setLayout(layout);
 
     connect(button, &QPushButton::clicked, this, &LineButton::click, Qt::DirectConnection);
     connect(this, SIGNAL(click_on(Player::ptr)), controller, SLOT(add_player(Player::ptr)), Qt::DirectConnection);

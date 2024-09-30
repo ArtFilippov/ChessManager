@@ -3,8 +3,11 @@
 #include "controller.h"
 
 #include <QApplication>
+#include <exception>
+#include <QException>
+#include <iostream>
 
-int main(int argc, char *argv[])
+int main(int argc, char *argv[]) try
 {
     QApplication a(argc, argv);
     MainWindow w;
@@ -21,4 +24,8 @@ int main(int argc, char *argv[])
 
     w.show();
     return a.exec();
+} catch (std::exception e) {
+    std::cerr << e.what() << std::endl;
+} catch (QException e) {
+    std::cerr << e.what() << std::endl;
 }

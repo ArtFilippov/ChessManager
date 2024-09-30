@@ -1,5 +1,6 @@
 #include "controller.h"
 
+
 #include <exception>
 #include <iostream>
 
@@ -10,6 +11,7 @@ Controller::Controller(QWidget *parent) : QWidget(parent), view(new View(this, "
     system->addItem("Round");
 
     total_rounds->addItem("auto");
+    total_rounds->addItem("8");
 
     settings->addWidget(system);
     settings->addWidget(new QLabel("system"));
@@ -18,6 +20,7 @@ Controller::Controller(QWidget *parent) : QWidget(parent), view(new View(this, "
 
     QPushButton *start = new QPushButton("start");
     connect(start, SIGNAL(clicked()), this, SLOT(new_tournament()));
+
     buttons->addWidget(start);
 
     viewport->setWidgetResizable(true);
@@ -31,6 +34,7 @@ Controller::Controller(QWidget *parent) : QWidget(parent), view(new View(this, "
     this->setLayout(layout);
 }
 
+
 void Controller::new_tournament()
 {
     if (system->currentText() == "Swiss") {
@@ -43,11 +47,12 @@ void Controller::new_tournament()
         tournament = ChessTournament::ptr(new RoundTournament(view));
     }
 
-    QPushButton *done = new QPushButton("done");
+    QPushButton *done = new QPushButton("done", this);
     connect(done, SIGNAL(clicked()), this, SLOT(start_tournament()));
-    auto *old = buttons->itemAt(0)->widget();
+    auto *old = buttons->itemAt(0);
 
-    buttons->replaceWidget(old, done);
+    buttons->replaceWidget(old->widget(), done);
+    old->widget()->close();
     delete old;
 
     view->start_adding_players();
