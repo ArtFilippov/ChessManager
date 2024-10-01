@@ -18,7 +18,6 @@ View::View(QWidget *controller, std::string instruction) : layout(new QVBoxLayou
     this->setLayout(layout);
 }
 
-
 void View::start_adding_players()
 {
     clear_rows();
@@ -30,13 +29,20 @@ void View::start_adding_players()
 void View::show_pairs(std::vector<std::pair<Player::ptr, Player::ptr>> pairs)
 {
     clear_rows();
-    QWidget *line = new GameLineButton(controller_, this, Line::ptr(new GameLine(this, "Player name", "score", "score", "Player name")));
+
+    lines.push_back(Line::ptr(new GameLine(this, "Player name", "score", "score", "Player name")));
+    QWidget *line = new GameLineButton(controller_, this, lines.back());
     layout->insertWidget(0, line);
+
     for (size_t i = 0; i < pairs.size(); ++i) {
-        QWidget *line = new GameLineButton(controller_, this, Line::ptr(new GameLine(this, pairs[i].first, pairs[i].second)));
+        lines.push_back(Line::ptr(new GameLine(this, pairs[i].first, pairs[i].second)));
+        QWidget *line = new GameLineButton(controller_, this, lines.back());
         layout->insertWidget(i + 1, line);
     }
+
+    align_lines();
 }
+
 void View::show_standings(std::vector<std::pair<Player::ptr, float>>) {}
 
 QWidget* View::widget()
@@ -61,6 +67,8 @@ void View::show_adding_players()
         QWidget *line = new LineButton(controller_, this, lines[i]);
         layout->insertWidget(i, line);
     }
+
+   // align_lines();
 }
 
 void View::add_regline()
@@ -76,7 +84,7 @@ void View::remove_line(Player::ptr player)
         return;
     }
 
-    for (size_t i = lines.size() - 2; i >= 0; ++i) {
+    for (size_t i = lines.size() - 2; i >= 0; --i) {
         if (lines[i]->off()->get_name() == player->get_name()) {
             auto wid = layout->takeAt(i);
             wid->widget()->close();
@@ -84,5 +92,15 @@ void View::remove_line(Player::ptr player)
             lines.erase(lines.begin() + i);
             return;
         }
+    }
+}
+
+void View::align_lines()
+{
+    std::vector<std::size_t> sizes;
+    lines[0]->get_sizes(sizes);
+    std::cout << sizes[0] << std::endl;
+    for (auto line : lines) {
+        line->set_sizes(sizes);
     }
 }

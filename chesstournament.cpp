@@ -42,7 +42,7 @@ void RoundTournament::make_pairs()
         return;
     }
 
-    if (!players_.size() % 2) {
+    if (players_.size() % 2 != 0) {
         players_.push_back(Player::ptr(new Player("pass", 1000)));
     }
 
@@ -54,7 +54,7 @@ void RoundTournament::make_pairs()
     int last = boards * 2 - 1;
 
     std::vector<std::pair<Player::ptr, Player::ptr>> pairs(boards);
-    if (round % 2) {
+    if (round % 2 == 0) {
         pairs[0].first = players_[round];
         pairs[0].second = players_[last];
     } else {

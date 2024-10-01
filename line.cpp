@@ -25,6 +25,7 @@ RegLine::RegLine(QWidget *parent) : Line(parent), is_done(0)
     row.push_back(dynamic_cast<QWidget*>(new QTextEdit));
     layout->addWidget(row[0]);
     layout->addWidget(row[1]);
+
     this->setLayout(layout);
 }
 
@@ -80,11 +81,12 @@ GameLine::GameLine(QWidget *parent, Player::ptr p1, Player::ptr p2) : Line(paren
     row.push_back(dynamic_cast<QWidget*>(new QLabel(QString::fromStdString(player_1->get_name()))));
     row.push_back(dynamic_cast<QWidget*>(new QTextEdit));
     row.push_back(dynamic_cast<QWidget*>(new QTextEdit));
-    row.push_back(dynamic_cast<QWidget*>(new QLabel(QString::fromStdString(player_1->get_name()))));
+    row.push_back(dynamic_cast<QWidget*>(new QLabel(QString::fromStdString(player_2->get_name()))));
     layout->addWidget(row[0]);
     layout->addWidget(row[1]);
     layout->addWidget(row[2]);
     layout->addWidget(row[3]);
+
     this->setLayout(layout);
 }
 

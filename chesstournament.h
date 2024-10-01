@@ -12,7 +12,7 @@ protected:
     IView *view_;
     std::vector<Player::ptr> players_{};
     int total_rounds_;
-    int round{};
+    int round{0};
 public:
     typedef std::shared_ptr<ChessTournament> ptr;
 

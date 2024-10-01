@@ -952,4 +952,5 @@ CMakeFiles/SimpleChessTournament.dir/chesstournament.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qwidgetaction.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qwizard.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtwidgetsversion.h \
+ /usr/include/c++/14/iostream \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QWidget

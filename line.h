@@ -9,6 +9,7 @@
 #include <vector>
 #include <string>
 #include <memory>
+#include <iostream>
 
 class Line : public QWidget
 {
@@ -40,21 +41,23 @@ public:
     virtual Player::ptr on() = 0;
     virtual Player::ptr off() = 0;
 
-    virtual std::vector<std::size_t> get_sizes()
+    virtual void get_sizes(std::vector<std::size_t> &res)
     {
-        std::vector<std::size_t> res(row.size());
+        res.clear();
         for (std::size_t i = 0; i < row.size(); ++i) {
             res.push_back(row[i]->size().width());
+            std::cout << res.back() << std::endl;
         }
-
-        return res;
     }
 
-    virtual void set_sizes(std::vector<std::size_t> sizes)
+    virtual void set_sizes(std::vector<std::size_t> &sizes)
     {
         for (std::size_t i = 0; i < row.size() && i < sizes.size(); ++i) {
-            row[i]->setMinimumWidth(sizes[i]);
+            std::cout << sizes[i] << std::endl;
+            layout->setStretch(i, sizes[i]);
         }
+
+        layout->update();
     }
 
     std::vector<std::string> get_data()

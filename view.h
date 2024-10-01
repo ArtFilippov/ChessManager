@@ -40,6 +40,7 @@ public:
 private:
     void clear_rows();
     void show_adding_players();
+    void align_lines();
 public slots:
     void add_regline() override;
     void remove_line(Player::ptr) override;
