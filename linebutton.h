@@ -12,12 +12,24 @@ class LineButton : public QWidget
     bool is_ok{1};
     QPushButton *button;
     Line::ptr line_;
-
 public:
     LineButton(QWidget *controller, QWidget *view, Line::ptr line);
 signals:
     void click_on(Player::ptr);
     void click_off(Player::ptr);
+public slots:
+    void click();
+};
+
+class GameLineButton : public QWidget
+{
+    Q_OBJECT
+
+    bool is_ok{1};
+    QPushButton *button;
+    Line::ptr line_;
+public:
+    GameLineButton(QWidget *controller, QWidget *view, Line::ptr line);
 public slots:
     void click();
 };

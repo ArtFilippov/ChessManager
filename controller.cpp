@@ -77,5 +77,18 @@ void Controller::remove_player(Player::ptr player)
 
 void Controller::start_tournament()
 {
+    QPushButton *finish = new QPushButton("finish", this);
+    connect(finish, SIGNAL(clicked()), this, SLOT(standings()));
+    auto *old = buttons->itemAt(0);
+
+    buttons->replaceWidget(old->widget(), finish);
+    old->widget()->close();
+    delete old;
+
+    tournament->make_pairs();
+}
+
+void Controller::standings()
+{
 
 }

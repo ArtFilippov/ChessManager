@@ -28,6 +28,7 @@ public slots:
     void remove_player(Player::ptr);
     void new_tournament();
     void start_tournament();
+    void standings();
 };
 
 #endif // CONTROLLER_H

@@ -16,9 +16,6 @@ class Line : public QWidget
 protected:
     std::vector<QWidget*> row{};
     QHBoxLayout* layout;
-
-    Player::ptr player{nullptr};
-
 public:
     typedef std::shared_ptr<Line> ptr;
     Line(QWidget *parent) : QWidget(parent), layout(new QHBoxLayout(this)) {}
@@ -80,24 +77,39 @@ public:
 
 class TextLine : public Line
 {
+    Player::ptr player{nullptr};
 public:
     TextLine(QWidget *parent, std::string s);
 
     Player::ptr on() override;
-
     Player::ptr off() override;
 };
 
 class RegLine : public Line
 {
     bool is_done;
+    Player::ptr player{nullptr};
 public:
     RegLine(QWidget *parent);
     RegLine(QWidget *parent, std::string s1, std::string s2);
 
     Player::ptr on() override;
-
     Player::ptr off() override;
+};
+
+class GameLine : public Line
+{
+    bool is_done;
+    Player::ptr player_1;
+    Player::ptr player_2;
+public:
+    GameLine(QWidget *parent, std::string s1, std::string s2, std::string s3, std::string s4);
+    GameLine(QWidget *parent, Player::ptr p1, Player::ptr p2);
+
+    Player::ptr on() override;
+    Player::ptr off() override;
+private:
+    void off_row();
 };
 
 #endif // REGLINE_H

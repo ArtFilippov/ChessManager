@@ -43,7 +43,7 @@ void RoundTournament::make_pairs()
     }
 
     if (!players_.size() % 2) {
-        players_.push_back(Player::ptr(nullptr));
+        players_.push_back(Player::ptr(new Player("pass", 1000)));
     }
 
     int boards = players_.size() / 2;
@@ -65,7 +65,7 @@ void RoundTournament::make_pairs()
 
     for (int i = 1; i < boards; ++i) {
         int ifirst = (i + round) % last;
-        int isecond = (2 * round - ifirst) % last;
+        int isecond = (2 * round - ifirst + last) % last;
         pairs[i].first = players_[ifirst];
         pairs[i].second = players_[isecond];
     }

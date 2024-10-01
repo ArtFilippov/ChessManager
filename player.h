@@ -12,11 +12,12 @@ class Player
 public:
     typedef std::shared_ptr<Player> ptr;
     typedef std::weak_ptr<Player> wptr;
-    enum {BLACK, WHITE};
+    enum {BLACK, WHITE, UNKNOWN};
 
     Player(std::string name, int elo = 1000);
 
     void add_game_result(ptr opponent, float result, int color);
+    void remove_game_result(ptr opponent);
     float result_of_game_with(ptr opponent);
     bool is_played_with(ptr opponent);
     float buchholz(int truncation);
@@ -31,8 +32,8 @@ private:
     std::string name_;
     int elo_;
     float points{};
-    float last_result;
-    int last_color;
+    float last_result{};
+    int last_color{UNKNOWN};
 
     std::vector<wptr> players;
     std::map<std::string, std::tuple<wptr, float, int>> games; // <name, <Player, result, color>>

@@ -27,7 +27,16 @@ void View::start_adding_players()
     show_adding_players();
 }
 
-void View::show_pairs(std::vector<std::pair<Player::ptr, Player::ptr>>) {}
+void View::show_pairs(std::vector<std::pair<Player::ptr, Player::ptr>> pairs)
+{
+    clear_rows();
+    QWidget *line = new GameLineButton(controller_, this, Line::ptr(new GameLine(this, "Player name", "score", "score", "Player name")));
+    layout->insertWidget(0, line);
+    for (size_t i = 0; i < pairs.size(); ++i) {
+        QWidget *line = new GameLineButton(controller_, this, Line::ptr(new GameLine(this, pairs[i].first, pairs[i].second)));
+        layout->insertWidget(i + 1, line);
+    }
+}
 void View::show_standings(std::vector<std::pair<Player::ptr, float>>) {}
 
 QWidget* View::widget()
@@ -38,7 +47,9 @@ QWidget* View::widget()
 void View::clear_rows()
 {
     for (size_t i = 0; i < lines.size(); ++i) {
-        delete layout->takeAt(0);
+        auto wid = layout->takeAt(0);
+        wid->widget()->close();
+        delete wid;
     }
 
     lines.clear();
@@ -50,7 +61,6 @@ void View::show_adding_players()
         QWidget *line = new LineButton(controller_, this, lines[i]);
         layout->insertWidget(i, line);
     }
-
 }
 
 void View::add_regline()

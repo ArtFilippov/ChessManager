@@ -15,6 +15,18 @@ void Player::add_game_result(ptr opponent, float result, int color)
     games.insert({opponent->get_name(), std::tuple{wptr(opponent), result, color}});
 }
 
+void Player::remove_game_result(ptr opponent)
+{
+    if (!is_played_with(opponent)) {
+        return;
+    }
+
+    auto [_, result, color] = games[opponent->get_name()];
+    points -= result;
+    last_color = UNKNOWN;
+    games.erase(opponent->get_name());
+}
+
 float Player::get_points()
 {
     return points;
