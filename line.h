@@ -40,6 +40,18 @@ public:
     virtual Player::ptr on() = 0;
     virtual Player::ptr off() = 0;
 
+    virtual void set_fields(std::vector<std::string> &data)
+    {
+        size_t j = 0;
+        for (std::size_t i = 0; i < row.size() && j < data.size(); ++i) {
+            if (QTextEdit *text = dynamic_cast<QTextEdit*>(row[i])) {
+                text->setText(QString::fromStdString(data[i++]));
+            }
+        }
+
+        layout->update();
+    }
+
     virtual void get_sizes(std::vector<std::size_t> &res)
     {
         res.clear();

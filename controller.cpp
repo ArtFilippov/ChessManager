@@ -36,15 +36,7 @@ Controller::Controller(QWidget *parent) : QWidget(parent), view(new View(this, "
 
 void Controller::new_tournament()
 {
-    if (system->currentText() == "Swiss") {
-        if (total_rounds->currentText() == "auto") {
-            tournament = ChessTournament::ptr(new SwissTournament(view));
-        } else {
-            tournament = ChessTournament::ptr(new SwissTournament(view, std::stoi(total_rounds->currentText().toStdString())));
-        }
-    } else if (system->currentText() == "Round") {
-        tournament = ChessTournament::ptr(new RoundTournament(view));
-    }
+    tournament = make_tournament();
 
     QPushButton *done = new QPushButton("done", this);
     connect(done, SIGNAL(clicked()), this, SLOT(start_tournament()));
@@ -53,6 +45,10 @@ void Controller::new_tournament()
     buttons->replaceWidget(old->widget(), done);
     old->widget()->close();
     delete old;
+
+    QPushButton *restart = new QPushButton("restart", this);
+    connect(done, SIGNAL(clicked()), this, SLOT(restart_tournament()));
+    settings->addWidget(restart);
 
     view->start_adding_players();
 }
@@ -98,4 +94,27 @@ void Controller::standings()
     delete old;
 
     tournament->standings();
+}
+
+void Controller::restart_tournament()
+{
+    std::vector<Player::ptr> players;
+    tournament->get_players(players);
+
+    tournament = make_tournament();
+
+    view->restart(players);
+}
+
+ChessTournament::ptr Controller::make_tournament()
+{
+    if (system->currentText() == "Swiss") {
+        if (total_rounds->currentText() == "auto") {
+            return ChessTournament::ptr(new SwissTournament(view));
+        } else {
+            return ChessTournament::ptr(new SwissTournament(view, std::stoi(total_rounds->currentText().toStdString())));
+        }
+    } else {
+        return ChessTournament::ptr(new RoundTournament(view));
+    }
 }

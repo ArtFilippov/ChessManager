@@ -88,6 +88,26 @@ void View::show_adding_players()
     set_lines_height(0);
 }
 
+void View::restart(std::vector<Player::ptr>& players)
+{
+    clear_rows();
+    add_regline();
+    for (auto p : players) {
+        enter_person(p);
+    }
+}
+
+void View::enter_person(Player::ptr player)
+{
+    std::vector<std::string> fields;
+    fields.push_back(player->get_name());
+    fields.push_back(std::to_string(player->get_elo()));
+
+    lines.back()->set_fields(fields);
+    LineButton *button = dynamic_cast<LineButton*>(layout->itemAt(lines.size() - 1)->widget());
+    button->click();
+}
+
 void View::add_regline()
 {
     lines.push_back(Line::ptr(new RegLine(this)));

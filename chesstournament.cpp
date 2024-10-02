@@ -19,6 +19,11 @@ void ChessTournament::remove_player(Player::ptr player)
     players_.erase(std::find(players_.begin(), players_.end(), player));
 }
 
+void ChessTournament::get_players(std::vector<Player::ptr>& players)
+{
+    players = players_;
+}
+
 // RoundTournament
 RoundTournament::RoundTournament(IView *view) : ChessTournament(view, 0) {}
 

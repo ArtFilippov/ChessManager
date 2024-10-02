@@ -29,6 +29,9 @@ public slots:
     void new_tournament();
     void start_tournament();
     void standings();
+    void restart_tournament();
+private:
+    ChessTournament::ptr make_tournament();
 };
 
 #endif // CONTROLLER_H

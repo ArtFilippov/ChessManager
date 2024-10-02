@@ -24,6 +24,8 @@ public:
 
     virtual void make_pairs() = 0;
     virtual void standings() = 0;
+
+    virtual void get_players(std::vector<Player::ptr>&);
 };
 
 class SwissTournament : public ChessTournament
