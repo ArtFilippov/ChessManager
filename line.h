@@ -45,7 +45,7 @@ public:
         size_t j = 0;
         for (std::size_t i = 0; i < row.size() && j < data.size(); ++i) {
             if (QTextEdit *text = dynamic_cast<QTextEdit*>(row[i])) {
-                text->setText(QString::fromStdString(data[i++]));
+                text->setText(QString::fromStdString(data[j++]));
             }
         }
 

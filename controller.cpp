@@ -47,7 +47,7 @@ void Controller::new_tournament()
     delete old;
 
     QPushButton *restart = new QPushButton("restart", this);
-    connect(done, SIGNAL(clicked()), this, SLOT(restart_tournament()));
+    connect(restart, SIGNAL(clicked()), this, SLOT(restart_tournament()));
     settings->addWidget(restart);
 
     view->start_adding_players();
@@ -102,6 +102,14 @@ void Controller::restart_tournament()
     tournament->get_players(players);
 
     tournament = make_tournament();
+
+    QPushButton *done = new QPushButton("done", this);
+    connect(done, SIGNAL(clicked()), this, SLOT(start_tournament()));
+    auto *old = buttons->itemAt(0);
+
+    buttons->replaceWidget(old->widget(), done);
+    old->widget()->close();
+    delete old;
 
     view->restart(players);
 }

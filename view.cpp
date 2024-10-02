@@ -90,8 +90,7 @@ void View::show_adding_players()
 
 void View::restart(std::vector<Player::ptr>& players)
 {
-    clear_rows();
-    add_regline();
+    start_adding_players();
     for (auto p : players) {
         enter_person(p);
     }

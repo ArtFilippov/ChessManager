@@ -26,6 +26,4 @@ int main(int argc, char *argv[]) try
     return a.exec();
 } catch (std::exception e) {
     std::cerr << e.what() << std::endl;
-} catch (QException e) {
-    std::cerr << e.what() << std::endl;
 }
