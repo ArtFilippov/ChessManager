@@ -8,7 +8,6 @@ LineButton::LineButton(QWidget *controller, QWidget *view, Line::ptr line) : but
     QHBoxLayout *layout = new QHBoxLayout;
     layout->addWidget(button);
 
-    line_->setFixedHeight(line_->fontMetrics().lineSpacing() * 2.7);
     layout->addWidget(line_->widget());
 
     this->setLayout(layout);
@@ -41,7 +40,6 @@ GameLineButton::GameLineButton(QWidget *controller, QWidget *view, Line::ptr lin
     QHBoxLayout *layout = new QHBoxLayout;
     layout->addWidget(button);
 
-    line_->setFixedHeight(line_->fontMetrics().lineSpacing() * 2.7);
     layout->addWidget(line_->widget());
 
     this->setLayout(layout);

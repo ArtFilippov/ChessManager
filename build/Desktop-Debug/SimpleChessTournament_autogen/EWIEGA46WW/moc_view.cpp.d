@@ -40,7 +40,6 @@
   /usr/include/c++/14/bits/hash_bytes.h \
   /usr/include/c++/14/bits/invoke.h \
   /usr/include/c++/14/bits/ios_base.h \
-  /usr/include/c++/14/bits/istream.tcc \
   /usr/include/c++/14/bits/iterator_concepts.h \
   /usr/include/c++/14/bits/list.tcc \
   /usr/include/c++/14/bits/locale_classes.h \
@@ -141,8 +140,6 @@
   /usr/include/c++/14/initializer_list \
   /usr/include/c++/14/ios \
   /usr/include/c++/14/iosfwd \
-  /usr/include/c++/14/iostream \
-  /usr/include/c++/14/istream \
   /usr/include/c++/14/iterator \
   /usr/include/c++/14/limits \
   /usr/include/c++/14/list \

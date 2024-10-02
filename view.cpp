@@ -27,7 +27,7 @@ void View::start_adding_players()
     show_adding_players();
 }
 
-void View::show_pairs(std::vector<std::pair<Player::ptr, Player::ptr>> pairs)
+void View::show_pairs(std::vector<std::pair<Player::ptr, Player::ptr>> &pairs)
 {
     clear_rows();
 
@@ -41,11 +41,11 @@ void View::show_pairs(std::vector<std::pair<Player::ptr, Player::ptr>> pairs)
         layout->insertWidget(i + 1, line);
     }
 
-    set_lines_height(lines[0]->fontMetrics().lineSpacing() * 2.7);
+    set_lines_height(0);
     align_lines();
 }
 
-void View::show_standings(std::vector<std::pair<Player::ptr, float>> player_and_coeff, int round, int total_rounds)
+void View::show_standings(std::vector<std::pair<Player::ptr, float>> &player_and_coeff, int round, int total_rounds)
 {
     clear_rows();
 
@@ -59,7 +59,7 @@ void View::show_standings(std::vector<std::pair<Player::ptr, float>> player_and_
         layout->insertWidget(i + 2, lines.back()->widget());
     }
 
-    set_lines_height(lines[0]->fontMetrics().lineSpacing() * 2.7);
+    set_lines_height(0);
 }
 
 QWidget* View::widget()
@@ -85,7 +85,7 @@ void View::show_adding_players()
         layout->insertWidget(i, line);
     }
 
-    set_lines_height(lines[0]->fontMetrics().lineSpacing() * 2.7);
+    set_lines_height(0);
 }
 
 void View::add_regline()
@@ -93,6 +93,8 @@ void View::add_regline()
     lines.push_back(Line::ptr(new RegLine(this)));
     QWidget *line = new LineButton(controller_, this, lines.back());
     layout->insertWidget(lines.size() - 1, line);
+
+    set_lines_height(lines.size() - 1);
 }
 
 void View::remove_line(Player::ptr player)
@@ -112,10 +114,10 @@ void View::remove_line(Player::ptr player)
     }
 }
 
-void View::set_lines_height(int h)
+void View::set_lines_height(int from)
 {
-    for (auto line : lines) {
-        line->setFixedHeight(h);
+    for (size_t i = from; i < lines.size(); ++i) {
+        lines[i]->setFixedHeight(lines[0]->fontMetrics().lineSpacing() * 2.7);
     }
 }
 
@@ -127,3 +129,4 @@ void View::align_lines()
         line->set_sizes(sizes);
     }
 }
+

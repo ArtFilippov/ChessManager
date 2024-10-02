@@ -950,7 +950,6 @@ CMakeFiles/SimpleChessTournament.dir/SimpleChessTournament_autogen/mocs_compilat
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qwidgetaction.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qwizard.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtwidgetsversion.h \
- /usr/include/c++/14/iostream \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QWidget \
  /home/user/SimpleChessTournament/build/Desktop-Debug/SimpleChessTournament_autogen/EWIEGA46WW/moc_line.cpp \
  /home/user/SimpleChessTournament/build/Desktop-Debug/SimpleChessTournament_autogen/EWIEGA46WW/../../../../line.h \

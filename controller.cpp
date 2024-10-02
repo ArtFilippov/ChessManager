@@ -1,6 +1,5 @@
 #include "controller.h"
 
-
 #include <exception>
 #include <iostream>
 
@@ -90,5 +89,13 @@ void Controller::start_tournament()
 
 void Controller::standings()
 {
+    QPushButton *next = new QPushButton("next", this);
+    connect(next, SIGNAL(clicked()), this, SLOT(start_tournament()));
+    auto *old = buttons->itemAt(0);
 
+    buttons->replaceWidget(old->widget(), next);
+    old->widget()->close();
+    delete old;
+
+    tournament->standings();
 }

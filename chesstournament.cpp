@@ -66,29 +66,37 @@ void RoundTournament::make_pairs()
     for (int i = 1; i < boards; ++i) {
         int ifirst = (i + round) % last;
         int isecond = (2 * round - ifirst + last) % last;
-        pairs[i].first = players_[ifirst];
-        pairs[i].second = players_[isecond];
+
+        if (i % 2 == 0) {
+            pairs[i].first = players_[ifirst];
+            pairs[i].second = players_[isecond];
+        } else {
+            pairs[i].second = players_[ifirst];
+            pairs[i].first = players_[isecond];
+        }
     }
 
     view_->show_pairs(pairs);
 
     ++round;
 
-    if (!players_.back().get()) {
+    if (players_.back()->get_name() == "pass") {
         players_.pop_back();
     }
 }
 
 void RoundTournament::standings()
 {
-    std::sort(players_.begin(), players_.end(), [](Player::ptr a, Player::ptr b){
+    auto stand(players_);
+
+    std::sort(stand.begin(), stand.end(), [](Player::ptr a, Player::ptr b){
         if (a->get_points() != b->get_points()) return a->get_points() > b->get_points();
         if (a->is_played_with(b) && a->result_of_game_with(b) != 0.5) return a->result_of_game_with(b) == 1;
         return a->berger() > b->berger();
     });
-    std::vector<std::pair<Player::ptr, float>> player_and_coeff(players_.size());
-    for (std::size_t i = 0; i < players_.size(); ++i) {
-        player_and_coeff.push_back({players_[i], players_[i]->berger()});
+    std::vector<std::pair<Player::ptr, float>> player_and_coeff;
+    for (std::size_t i = 0; i < stand.size(); ++i) {
+        player_and_coeff.push_back(std::pair<Player::ptr, float>{stand[i], stand[i]->berger()});
     }
 
     view_->show_standings(player_and_coeff, round, total_rounds_);
