@@ -9,7 +9,6 @@
 #include <vector>
 #include <string>
 #include <memory>
-#include <iostream>
 
 class Line : public QWidget
 {
@@ -46,14 +45,12 @@ public:
         res.clear();
         for (std::size_t i = 0; i < row.size(); ++i) {
             res.push_back(row[i]->size().width());
-            std::cout << res.back() << std::endl;
         }
     }
 
     virtual void set_sizes(std::vector<std::size_t> &sizes)
     {
         for (std::size_t i = 0; i < row.size() && i < sizes.size(); ++i) {
-            std::cout << sizes[i] << std::endl;
             layout->setStretch(i, sizes[i]);
         }
 
@@ -108,6 +105,20 @@ class GameLine : public Line
 public:
     GameLine(QWidget *parent, std::string s1, std::string s2, std::string s3, std::string s4);
     GameLine(QWidget *parent, Player::ptr p1, Player::ptr p2);
+
+    Player::ptr on() override;
+    Player::ptr off() override;
+private:
+    void off_row();
+};
+
+class StandLine : public Line
+{
+    bool is_done;
+    Player::ptr player;
+public:
+    StandLine(QWidget *parent, std::string num, std::string name, std::string points, std::string coeff, std::string elo);
+    StandLine(QWidget *parent, int num, Player::ptr p1, float coeff);
 
     Player::ptr on() override;
     Player::ptr off() override;

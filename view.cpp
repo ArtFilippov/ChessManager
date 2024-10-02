@@ -3,6 +3,7 @@
 #include "linebutton.h"
 
 #include <algorithm>
+#include <format>
 
 View::View(QWidget *controller, std::string instruction) : layout(new QVBoxLayout(this)), controller_(controller)
 {
@@ -40,10 +41,26 @@ void View::show_pairs(std::vector<std::pair<Player::ptr, Player::ptr>> pairs)
         layout->insertWidget(i + 1, line);
     }
 
+    set_lines_height(lines[0]->fontMetrics().lineSpacing() * 2.7);
     align_lines();
 }
 
-void View::show_standings(std::vector<std::pair<Player::ptr, float>>) {}
+void View::show_standings(std::vector<std::pair<Player::ptr, float>> player_and_coeff, int round, int total_rounds)
+{
+    clear_rows();
+
+    lines.push_back(Line::ptr(new TextLine(this, std::format("Standings {}/{}", round, total_rounds))));
+    lines.push_back(Line::ptr(new StandLine(this, "num", "name", "score", "coeff", "elo")));
+    layout->insertWidget(0, lines[0]->widget());
+    layout->insertWidget(1, lines[1]->widget());
+
+    for (size_t i = 0; i < player_and_coeff.size(); ++i) {
+        lines.push_back(Line::ptr(new StandLine(this, i + 1, player_and_coeff[i].first, player_and_coeff[i].second)));
+        layout->insertWidget(i + 2, lines.back()->widget());
+    }
+
+    set_lines_height(lines[0]->fontMetrics().lineSpacing() * 2.7);
+}
 
 QWidget* View::widget()
 {
@@ -68,7 +85,7 @@ void View::show_adding_players()
         layout->insertWidget(i, line);
     }
 
-   // align_lines();
+    set_lines_height(lines[0]->fontMetrics().lineSpacing() * 2.7);
 }
 
 void View::add_regline()
@@ -95,11 +112,17 @@ void View::remove_line(Player::ptr player)
     }
 }
 
+void View::set_lines_height(int h)
+{
+    for (auto line : lines) {
+        line->setFixedHeight(h);
+    }
+}
+
 void View::align_lines()
 {
     std::vector<std::size_t> sizes;
     lines[0]->get_sizes(sizes);
-    std::cout << sizes[0] << std::endl;
     for (auto line : lines) {
         line->set_sizes(sizes);
     }

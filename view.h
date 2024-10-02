@@ -15,7 +15,7 @@ public:
 
     virtual ~IView() = default;
     virtual void show_pairs(std::vector<std::pair<Player::ptr, Player::ptr>>) = 0;
-    virtual void show_standings(std::vector<std::pair<Player::ptr, float>>) = 0;
+    virtual void show_standings(std::vector<std::pair<Player::ptr, float>>, int round, int total_rounds) = 0;
     virtual void start_adding_players() = 0;
     virtual void add_regline() = 0;
     virtual void remove_line(Player::ptr) = 0;
@@ -32,7 +32,7 @@ class View : public QWidget, public IView
 public:
     View(QWidget *controller, std::string instruction);
     void show_pairs(std::vector<std::pair<Player::ptr, Player::ptr>>) override;
-    void show_standings(std::vector<std::pair<Player::ptr, float>>) override;
+    void show_standings(std::vector<std::pair<Player::ptr, float>>, int round, int total_rounds) override;
     void start_adding_players() override;
 
     QWidget* widget() override;
@@ -44,6 +44,7 @@ private:
 public slots:
     void add_regline() override;
     void remove_line(Player::ptr) override;
+    void set_lines_height(int h);
 };
 
 #endif // VIEW_H

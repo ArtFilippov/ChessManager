@@ -139,3 +139,51 @@ void GameLine::off_row()
         row[i] = new_widget;
     }
 }
+
+
+// StandLine
+
+StandLine::StandLine(QWidget *parent, std::string num, std::string name, std::string points, std::string coeff, std::string elo) : Line(parent), player(nullptr), is_done(1)
+{
+    row.push_back(dynamic_cast<QWidget*>(new QLabel(QString::fromStdString(num))));
+    row.push_back(dynamic_cast<QWidget*>(new QLabel(QString::fromStdString(name))));
+    row.push_back(dynamic_cast<QWidget*>(new QLabel(QString::fromStdString(points))));
+    row.push_back(dynamic_cast<QWidget*>(new QLabel(QString::fromStdString(coeff))));
+    row.push_back(dynamic_cast<QWidget*>(new QLabel(QString::fromStdString(elo))));
+
+    layout->addWidget(row[0]);
+    layout->addWidget(row[1]);
+    layout->addWidget(row[2]);
+    layout->addWidget(row[3]);
+    layout->addWidget(row[4]);
+
+    this->setLayout(layout);
+}
+
+StandLine::StandLine(QWidget *parent, int num, Player::ptr p1, float coeff) : Line(parent), player(p1), is_done(1)
+{
+    row.push_back(dynamic_cast<QWidget*>(new QLabel(QString::fromStdString(std::to_string(num)))));
+    row.push_back(dynamic_cast<QWidget*>(new QLabel(QString::fromStdString(player->get_name()))));
+    row.push_back(dynamic_cast<QWidget*>(new QLabel(QString::fromStdString(std::to_string(player->get_points())))));
+    row.push_back(dynamic_cast<QWidget*>(new QLabel(QString::fromStdString(std::to_string(coeff)))));
+    row.push_back(dynamic_cast<QWidget*>(new QLabel(QString::fromStdString(std::to_string(player->get_elo())))));
+
+    layout->addWidget(row[0]);
+    layout->addWidget(row[1]);
+    layout->addWidget(row[2]);
+    layout->addWidget(row[3]);
+    layout->addWidget(row[4]);
+
+    this->setLayout(layout);
+}
+
+Player::ptr StandLine::on()
+{
+    return player;
+}
+
+Player::ptr StandLine::off()
+{
+    return player;
+}
+

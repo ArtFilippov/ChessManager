@@ -72,6 +72,8 @@ void RoundTournament::make_pairs()
 
     view_->show_pairs(pairs);
 
+    ++round;
+
     if (!players_.back().get()) {
         players_.pop_back();
     }
@@ -89,7 +91,7 @@ void RoundTournament::standings()
         player_and_coeff.push_back({players_[i], players_[i]->berger()});
     }
 
-    view_->show_standings(player_and_coeff);
+    view_->show_standings(player_and_coeff, round, total_rounds_);
 }
 
 //SwissTournament
