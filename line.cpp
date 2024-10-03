@@ -1,4 +1,6 @@
 #include "line.h"
+#include <iostream>
+#include <QMessageBox>
 
 TextLine::TextLine(QWidget *parent, std::string s) : Line(parent)
 {
@@ -45,13 +47,32 @@ Player::ptr RegLine::on()
     }
 
     std::vector<std::string> data = Line::get_data();
-    if (data[0] == "" || data[1] == "") {
+    if (data[0] == "") {
         return player;
+    }
+
+    if (data[1] == "") {
+        player = Player::ptr(new Player(data[0]));
+    } else {
+        int elo = 0;
+
+        try {
+            elo = std::stoi(data[1]);
+        } catch(std::invalid_argument e) {
+            std::cerr << e.what() << std::endl;
+            QMessageBox::warning(0, "Incorrect Input ", "the field \"elo\" must be an integer");
+            return player;
+        } catch (std::out_of_range e) {
+            std::cerr << e.what() << std::endl;
+            QMessageBox::warning(0, "Incorrect Input ", "too many characters in \"elo\"");
+            return player;
+        }
+
+        player = Player::ptr(new Player(data[0], elo));
     }
 
     on_row();
 
-    player = Player::ptr(new Player(data[0], std::stoi(data[1])));
     is_done = true;
     return player;
 }
@@ -59,6 +80,13 @@ Player::ptr RegLine::on()
 Player::ptr RegLine::off()
 {
     return player;
+}
+
+void RegLine::on_row()
+{
+    auto elo_field = dynamic_cast<QTextEdit*>(row[1]);
+    elo_field->setText(QString::fromStdString(std::to_string(player->get_elo())));
+    Line::on_row();
 }
 
 // GameLine
@@ -90,29 +118,53 @@ GameLine::GameLine(QWidget *parent, Player::ptr p1, Player::ptr p2) : Line(paren
     this->setLayout(layout);
 }
 
-Player::ptr GameLine::on()
+Player::ptr GameLine::on() try
 {
     if (is_done) {
-        return player_1;
+        return Player::ptr(nullptr);
     }
 
     std::vector<std::string> data = Line::get_data();
-    if (data[0] == "" || data[1] == "") {
-        return player_1;
+
+    if (data[0] == "" && data[1] == "") {
+        return Player::ptr(nullptr);
     }
+
+    float result_1, result_2;
+    if (data[0] == "" ) {
+        result_2 = std::stof(data[1]);
+        result_1 = 1 - result_2;
+    } else if (data[1] == "") {
+        result_1 = std::stof(data[0]);
+        result_2 = 1 - result_1;
+    } else {
+        result_1 = std::stof(data[0]);
+        result_2 = std::stof(data[1]);
+    }
+
+
+    player_1->add_game_result(player_2, result_1, Player::WHITE);
+    player_2->add_game_result(player_1, result_2, Player::BLACK);
 
     on_row();
 
-    player_1->add_game_result(player_2, std::stoi(data[0]), Player::WHITE);
-    player_2->add_game_result(player_1, std::stoi(data[1]), Player::BLACK);
     is_done = true;
     return player_1;
+
+} catch(std::invalid_argument e) {
+    std::cerr << e.what() << std::endl;
+    QMessageBox::warning(0, "Incorrect Input", "the field must be a number");
+    return Player::ptr(nullptr);
+} catch (std::out_of_range e) {
+    std::cerr << e.what() << std::endl;
+    QMessageBox::warning(0, "Incorrect Input", "too many characters");
+    return Player::ptr(nullptr);
 }
 
 Player::ptr GameLine::off()
 {
     if (!is_done) {
-        return player_2;
+        return Player::ptr(nullptr);
     }
 
     if (player_1 && player_2) {
@@ -124,6 +176,17 @@ Player::ptr GameLine::off()
     }
 
     return player_2;
+}
+
+void GameLine::on_row()
+{
+    auto result_1 = dynamic_cast<QTextEdit*>(row[1]);
+    result_1->setText(QString::fromStdString(std::to_string(player_1->result_of_game_with(player_2))));
+
+    auto result_2 = dynamic_cast<QTextEdit*>(row[2]);
+    result_2->setText(QString::fromStdString(std::to_string(player_2->result_of_game_with(player_1))));
+
+    Line::on_row();
 }
 
 void GameLine::off_row()

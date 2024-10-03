@@ -20,7 +20,7 @@ public:
     typedef std::shared_ptr<Line> ptr;
     Line(QWidget *parent) : QWidget(parent), layout(new QHBoxLayout(this)) {}
 
-    void on_row()
+    virtual void on_row()
     {
         for (std::size_t i = 0; i < row.size(); ++i) {
             if (QTextEdit *text = dynamic_cast<QTextEdit*>(row[i])) {
@@ -107,6 +107,8 @@ public:
 
     Player::ptr on() override;
     Player::ptr off() override;
+
+    void on_row() override;
 };
 
 class GameLine : public Line
@@ -120,6 +122,8 @@ public:
 
     Player::ptr on() override;
     Player::ptr off() override;
+
+    void on_row() override;
 private:
     void off_row();
 };
