@@ -15,7 +15,7 @@ ILineButton::ILineButton(Line::ptr line) : button(new QPushButton("+")), line_(l
 void ILineButton::hide_button()
 {
     layout->takeAt(0);
-    layout->insertSpacing(0, button->size().width());
+    layout->insertSpacing(0, SIZE + layout->spacing());
     button->hide();
 }
 

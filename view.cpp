@@ -32,13 +32,14 @@ void View::show_pairs(std::vector<std::pair<Player::ptr, Player::ptr>> &pairs)
     clear_rows();
 
     lines.push_back(Line::ptr(new GameLine(this, "Player name", "score", "score", "Player name")));
-    QWidget *line = new GameLineButton(controller_, this, lines.back());
-    layout->insertWidget(0, line);
+    ILineButton *line = new GameLineButton(controller_, this, lines.back());
+    layout->insertWidget(0, line->widget());
+    line->hide_button();
 
     for (size_t i = 0; i < pairs.size(); ++i) {
         lines.push_back(Line::ptr(new GameLine(this, pairs[i].first, pairs[i].second)));
-        QWidget *line = new GameLineButton(controller_, this, lines.back());
-        layout->insertWidget(i + 1, line);
+        ILineButton *line = new GameLineButton(controller_, this, lines.back());
+        layout->insertWidget(i + 1, line->widget());
     }
 
     set_lines_height(0);
