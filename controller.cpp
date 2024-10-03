@@ -3,6 +3,8 @@
 #include <exception>
 #include <iostream>
 
+#include <QMessageBox>
+
 Controller::Controller(QWidget *parent) : QWidget(parent), view(new View(this, "instruction")), settings(new QHBoxLayout), system(new QComboBox(this)), total_rounds(new QComboBox(this)),
     buttons(new QHBoxLayout), viewport(new QScrollArea(this))
 {
@@ -60,6 +62,7 @@ void Controller::add_player(Player::ptr player)
         tournament->add_player(player);
     } catch (std::invalid_argument e) {
         std::cerr << e.what() << std::endl;
+        QMessageBox::warning(0, "Incorrect Input", "There is already such a person");
         view->remove_line(player);
     }
 }
