@@ -5,13 +5,28 @@
 
 #include <QWidget>
 
-class LineButton : public QWidget
+class ILineButton : public QWidget
+{
+    Q_OBJECT
+protected:
+    QPushButton *button;
+    QHBoxLayout *layout;
+    Line::ptr line_;
+    enum {SIZE = 45};
+public:
+    ILineButton(Line::ptr line);
+    virtual ~ILineButton() = default;
+    QWidget* widget();
+public slots:
+    void hide_button();
+    void show_button();
+};
+
+class LineButton : public ILineButton
 {
     Q_OBJECT
 
     bool is_ok{1};
-    QPushButton *button;
-    Line::ptr line_;
 public:
     LineButton(QWidget *controller, QWidget *view, Line::ptr line);
 signals:
@@ -21,13 +36,11 @@ public slots:
     void click();
 };
 
-class GameLineButton : public QWidget
+class GameLineButton : public ILineButton
 {
     Q_OBJECT
 
     bool is_ok{1};
-    QPushButton *button;
-    Line::ptr line_;
 public:
     GameLineButton(QWidget *controller, QWidget *view, Line::ptr line);
 public slots:

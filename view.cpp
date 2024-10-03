@@ -81,8 +81,12 @@ void View::clear_rows()
 void View::show_adding_players()
 {
     for (size_t i = 0; i < lines.size(); ++i) {
-        QWidget *line = new LineButton(controller_, this, lines[i]);
-        layout->insertWidget(i, line);
+        ILineButton *line = new LineButton(controller_, this, lines[i]);
+        layout->insertWidget(i, line->widget());
+
+        if (i == 0) {
+            line->hide_button();
+        }
     }
 
     set_lines_height(0);

@@ -1,17 +1,40 @@
 #include "linebutton.h"
 
-
-LineButton::LineButton(QWidget *controller, QWidget *view, Line::ptr line) : button(new QPushButton("+")), line_(line)
+ILineButton::ILineButton(Line::ptr line) : button(new QPushButton("+")), line_(line)
 {
-    button->setFixedSize(50, 50);
+    button->setFixedSize(SIZE, SIZE);
 
-    QHBoxLayout *layout = new QHBoxLayout;
+    layout = new QHBoxLayout;
     layout->addWidget(button);
 
     layout->addWidget(line_->widget());
 
     this->setLayout(layout);
+}
 
+void ILineButton::hide_button()
+{
+    layout->takeAt(0);
+    layout->insertSpacing(0, button->size().width());
+    button->hide();
+}
+
+void ILineButton::show_button()
+{
+    layout->takeAt(0);
+    layout->insertWidget(0, button);
+    button->hide();
+}
+
+QWidget* ILineButton::widget()
+{
+    return dynamic_cast<QWidget*>(this);
+}
+
+
+// LineButton
+LineButton::LineButton(QWidget *controller, QWidget *view, Line::ptr line) : ILineButton(line)
+{
     connect(button, &QPushButton::clicked, this, &LineButton::click, Qt::DirectConnection);
     connect(this, SIGNAL(click_on(Player::ptr)), controller, SLOT(add_player(Player::ptr)), Qt::DirectConnection);
     connect(this, SIGNAL(click_off(Player::ptr)), controller, SLOT(remove_player(Player::ptr)), Qt::DirectConnection);
@@ -33,17 +56,8 @@ void LineButton::click()
 }
 
 // GameLineButton
-GameLineButton::GameLineButton(QWidget *controller, QWidget *view, Line::ptr line) : button(new QPushButton("+")), line_(line)
+GameLineButton::GameLineButton(QWidget *controller, QWidget *view, Line::ptr line) : ILineButton(line)
 {
-    button->setFixedSize(50, 50);
-
-    QHBoxLayout *layout = new QHBoxLayout;
-    layout->addWidget(button);
-
-    layout->addWidget(line_->widget());
-
-    this->setLayout(layout);
-
     connect(button, &QPushButton::clicked, this, &GameLineButton::click, Qt::DirectConnection);
 }
 
@@ -57,3 +71,4 @@ void GameLineButton::click()
         button->setText("+");
     }
 }
+
