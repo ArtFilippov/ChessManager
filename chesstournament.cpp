@@ -41,10 +41,10 @@ void RoundTournament::remove_player(Player::ptr player)
     total_rounds_ = num_of_players - 1 + num_of_players % 2;
 }
 
-void RoundTournament::make_pairs()
+bool RoundTournament::make_pairs()
 {
     if (round >= total_rounds_) {
-        return;
+        return 1;
     }
 
     if (players_.size() % 2 != 0) {
@@ -88,6 +88,8 @@ void RoundTournament::make_pairs()
     if (players_.back()->get_name() == "pass") {
         players_.pop_back();
     }
+
+    return 0;
 }
 
 void RoundTournament::standings()
@@ -112,9 +114,9 @@ SwissTournament::SwissTournament(IView *view) : ChessTournament(view, 0) {}
 
 SwissTournament::SwissTournament(IView *view, int total_rounds) : ChessTournament(view, total_rounds) {}
 
-void SwissTournament::make_pairs()
+bool SwissTournament::make_pairs()
 {
-
+    return 1;
 }
 
 void SwissTournament::standings()

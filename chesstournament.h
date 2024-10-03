@@ -22,7 +22,7 @@ public:
     virtual void add_player(Player::ptr player);
     virtual void remove_player(Player::ptr player);
 
-    virtual void make_pairs() = 0;
+    virtual bool make_pairs() = 0;
     virtual void standings() = 0;
 
     virtual void get_players(std::vector<Player::ptr>&);
@@ -34,7 +34,7 @@ public:
     SwissTournament(IView *view, int total_rounds);
     SwissTournament(IView *view);
 
-    void make_pairs() override;
+    bool make_pairs() override;
     void standings() override;
 };
 
@@ -45,7 +45,7 @@ public:
 
     void add_player(Player::ptr player) override;
     void remove_player(Player::ptr player) override;
-    void make_pairs() override;
+    bool make_pairs() override;
     void standings() override;
 };
 

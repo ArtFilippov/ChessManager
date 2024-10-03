@@ -83,7 +83,11 @@ void Controller::start_tournament()
     old->widget()->close();
     delete old;
 
-    tournament->make_pairs();
+    if (tournament->make_pairs())
+    {
+        auto *old = buttons->itemAt(0);
+        old->widget()->hide();
+    }
 }
 
 void Controller::standings()
