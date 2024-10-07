@@ -12,6 +12,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
+FIND_PACKAGE(Boost 1.40 COMPONENTS system REQUIRED)
+INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIR})
+
 set(PROJECT_SOURCES
         main.cpp
         mainwindow.cpp
@@ -45,6 +48,7 @@ else()
             line.h line.cpp
             controller.h controller.cpp
             linebutton.h linebutton.cpp
+            database.h database.cpp
 
 
         )
