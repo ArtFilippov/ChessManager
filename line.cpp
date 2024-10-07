@@ -84,6 +84,9 @@ Player::ptr RegLine::off()
 
 void RegLine::on_row()
 {
+    auto name_field = dynamic_cast<QTextEdit*>(row[0]);
+    name_field->setText(QString::fromStdString(player->get_name()));
+
     auto elo_field = dynamic_cast<QTextEdit*>(row[1]);
     elo_field->setText(QString::fromStdString(std::to_string(player->get_elo())));
     Line::on_row();
