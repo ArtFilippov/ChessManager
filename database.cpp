@@ -11,6 +11,7 @@ Database::ptr Database::connect()
 }
 
 // SQLite
+std::weak_ptr<SQLite> SQLite::instance = std::shared_ptr<SQLite>(new SQLite)->weak_from_this();
 
 SQLite::SQLite() : db(QSqlDatabase::addDatabase("QSQLITE"))
 {
@@ -27,7 +28,7 @@ SQLite::~SQLite()
 
 std::shared_ptr<SQLite> SQLite::create_connection()
 {
-    return instance.lock();
+    return SQLite::instance.lock();
 }
 
 std::optional<std::tuple<int, std::string, int>> SQLite::find_person(std::string name)
@@ -74,6 +75,10 @@ void SQLite::add_preson(std::string name, int elo)
 
 void SQLite::add_game_result(std::string white, std::string black, float result_1, float result_2, int elo_1, int elo_2)
 {
+    if (is_repeated(white, black, result_1, result_2, elo_1, elo_2)) {
+        return;
+    }
+
     boost::trim(black);
     boost::trim(white);
 
@@ -117,4 +122,54 @@ void SQLite::add_game_result(std::string white, std::string black, float result_
     if (!query.exec()) {
         throw std::string("can't insert into a Games");
     }
+}
+
+bool SQLite::is_repeated(std::string white, std::string black, float result_1, float result_2, int elo_1, int elo_2)
+{
+    boost::trim(black);
+    boost::trim(white);
+
+    QSqlQuery query(db);
+
+    auto black_person = find_person(black);
+    if (!black_person.has_value()) {
+        throw std::string("can't find the player black");
+    }
+
+    auto white_person = find_person(white);
+    if (!black_person.has_value()) {
+        throw std::string("can't find the player white");
+    }
+
+    query.prepare("CREATE TABLE IF NOT EXISTS Games (id INT PTYMARY KEY, white_id INT, white_elo INT, white_result FLOAT, "
+                  "black_result FLOAT, black_elo INT, black_id INT, "
+                  "FOREIGN KEY(white_id) REFERENCES Players(id), "
+                  "FOREIGN KEY(black_id) REFERENCES Players(id))");
+    if (!query.exec()) {
+        throw std::string("can't get a table");
+    }
+
+    query.prepare("SELECT id FROM Games WHERE"
+                  "white_id = :white_id, white_elo = :white_elo, white_result = :white_result, "
+                  "black_result = :black_result, black_elo = :black_elo, black_id = :black_id)");
+
+    {
+        auto [white_id, _1, _2] = white_person.value();
+        query.bindValue(":white_id", QVariant(white_id));
+        query.bindValue(":white_elo", elo_1);
+        query.bindValue(":white_result", result_1);
+    }
+
+    {
+        auto [black_id, _1, _2] = black_person.value();
+        query.bindValue(":black_id", QVariant(black_id));
+        query.bindValue(":black_elo", elo_2);
+        query.bindValue(":black_result", result_2);
+    }
+
+    if (!query.exec()) {
+        throw std::string("can't insert into a Games");
+    }
+
+    return query.first();
 }

@@ -39,9 +39,8 @@ public:
     std::optional<std::tuple<int, std::string, int>> find_person(std::string name) override;
     void add_preson(std::string name, int elo) override;
     void add_game_result(std::string white, std::string black, float result_1, float result_2, int elo_1, int elo_2) override;
+private:
+    bool is_repeated(std::string white, std::string black, float result_1, float result_2, int elo_1, int elo_2);
 };
-
-std::weak_ptr<SQLite> SQLite::instance = SQLite().weak_from_this();
-
 
 #endif // DATABASE_H

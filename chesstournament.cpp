@@ -98,7 +98,7 @@ void RoundTournament::standings()
 
     std::sort(stand.begin(), stand.end(), [](Player::ptr a, Player::ptr b){
         if (a->get_points() != b->get_points()) return a->get_points() > b->get_points();
-        if (a->is_played_with(b) && a->result_of_game_with(b) != 0.5) return a->result_of_game_with(b) == 1;
+        if (a->is_played_with(b->get_name()) && a->result_of_game_with(b->get_name()) != b->result_of_game_with(a->get_name())) return a->result_of_game_with(b->get_name()) > b->result_of_game_with(a->get_name());
         return a->berger() > b->berger();
     });
     std::vector<std::pair<Player::ptr, float>> player_and_coeff;

@@ -189,10 +189,10 @@ Player::ptr GameLine::off()
 void GameLine::on_row()
 {
     auto result_1 = dynamic_cast<QTextEdit*>(row[1]);
-    result_1->setText(QString::fromStdString(std::to_string(player_1->result_of_game_with(player_2))));
+    result_1->setText(QString::fromStdString(std::to_string(player_1->result_of_game_with(player_2->get_name()))));
 
     auto result_2 = dynamic_cast<QTextEdit*>(row[2]);
-    result_2->setText(QString::fromStdString(std::to_string(player_2->result_of_game_with(player_1))));
+    result_2->setText(QString::fromStdString(std::to_string(player_2->result_of_game_with(player_1->get_name()))));
 
     Line::on_row();
 }

@@ -42,6 +42,7 @@ Player::~Player()
             elo_1 = opponent_elo;
             elo_2 = old_elo;
         }
+
         Database::connect()->add_game_result(white, black, result_1, result_2, elo_1, elo_2);
     }
 }
