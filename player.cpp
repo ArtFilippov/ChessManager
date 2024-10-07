@@ -9,10 +9,10 @@ void Player::add_game_result(ptr opponent, float result, int color)
 {
     last_color = color;
     last_result = result;
-    elo_ = calculate_new_elo(opponent, result);
+
     points += result;
     players.push_back(wptr(opponent));
-    games.insert({opponent->get_name(), std::tuple{wptr(opponent), result, color}});
+    games.insert({opponent->get_name(), std::tuple{wptr(opponent), result, color, elo_, opponent->get_elo()}});
 }
 
 void Player::remove_game_result(ptr opponent)
@@ -21,7 +21,10 @@ void Player::remove_game_result(ptr opponent)
         return;
     }
 
-    auto [_, result, color] = games[opponent->get_name()];
+    auto [_, result, color, old_elo, opponent_elo] = games[opponent->get_name()];
+
+    elo_ -= elo_diff(old_elo, opponent_elo, result);
+
     points -= result;
     last_color = UNKNOWN;
     games.erase(opponent->get_name());
@@ -79,7 +82,12 @@ int Player::get_elo()
     return elo_;
 }
 
-int Player::calculate_new_elo(ptr opponent, float result)
+void Player::update_elo(int opponent_elo, float result)
+{
+    elo_ += elo_diff(elo_, opponent_elo, result);
+}
+
+int Player::elo_diff(int my_elo, int opponent_elo, float result)
 {
     enum
     {
@@ -92,7 +100,7 @@ int Player::calculate_new_elo(ptr opponent, float result)
     };
 
 
-    float expected = 1 / (1 + std::pow(10, (opponent->get_elo() - elo_) / CORRECTION_FACTOR));
+    float expected = 1 / (1 + std::pow(10, (opponent_elo - elo_) / CORRECTION_FACTOR));
 
     int k;
     if (elo_ >= MIN_SENIOR) {
@@ -103,7 +111,7 @@ int Player::calculate_new_elo(ptr opponent, float result)
         k = K_FOR_JUNIOR;
     }
 
-    float new_elo = elo_ + k * (result - expected);
+    float diff = k * (result - expected);
 
-    return int(new_elo);
+    return int(diff);
 }

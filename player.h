@@ -26,8 +26,9 @@ public:
     std::string get_name();
     float get_points();
     int get_elo();
+    void update_elo(int opponent_elo, float result);
 private:
-    int calculate_new_elo(ptr opponent, float result);
+    int elo_diff(int my_elo, int opponent_elo, float result);
 private:
     std::string name_;
     int elo_;
@@ -36,7 +37,7 @@ private:
     int last_color{UNKNOWN};
 
     std::vector<wptr> players;
-    std::map<std::string, std::tuple<wptr, float, int>> games; // <name, <Player, result, color>>
+    std::map<std::string, std::tuple<wptr, float, int, int, int>> games; // <name, <Player, result, color, old_elo, opponent_elo>>
 };
 
 #endif // PLAYER_H

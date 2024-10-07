@@ -142,9 +142,14 @@ Player::ptr GameLine::on() try
         result_2 = std::stof(data[1]);
     }
 
+    int elo_1 = player_1->get_elo();
+    int elo_2 = player_2->get_elo();
 
     player_1->add_game_result(player_2, result_1, Player::WHITE);
     player_2->add_game_result(player_1, result_2, Player::BLACK);
+
+    player_1->update_elo(elo_2, result_1);
+    player_2->update_elo(elo_1, result_2);
 
     on_row();
 

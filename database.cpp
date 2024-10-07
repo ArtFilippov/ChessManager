@@ -14,7 +14,7 @@ Database::ptr Database::connect()
 
 SQLite::SQLite() : db(QSqlDatabase::addDatabase("QSQLITE"))
 {
-    db.setDatabaseName("/DB/ChessBase");
+    db.setDatabaseName("ChessBase");
     if (!db.open()) {
         throw std::string("unable to connect to the database");
     }
@@ -27,7 +27,6 @@ SQLite::~SQLite()
 
 std::shared_ptr<SQLite> SQLite::create_connection()
 {
-    instance = SQLite().weak_from_this();
     return instance.lock();
 }
 

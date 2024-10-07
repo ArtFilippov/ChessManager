@@ -19,7 +19,7 @@ protected:
 public:
     typedef std::shared_ptr<Database> ptr;
     static ptr connect();
-    virtual ~Database();
+    virtual ~Database() = default;
 
     virtual std::optional<std::tuple<int, std::string, int>> find_person(std::string name) = 0;
     virtual void add_preson(std::string name, int elo) = 0;
@@ -41,6 +41,7 @@ public:
     void add_game_result(std::string white, std::string black, float result_1, float result_2, int elo_1, int elo_2) override;
 };
 
+std::weak_ptr<SQLite> SQLite::instance = SQLite().weak_from_this();
 
 
 #endif // DATABASE_H
