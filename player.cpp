@@ -1,9 +1,50 @@
 #include "player.h"
 
+#include "database.h"
+
 #include <algorithm>
 #include <cmath>
 
-Player::Player(std::string name, int elo) : name_(name), elo_(elo) {}
+Player::Player(std::string name, int elo) : name_(name), elo_(elo)
+{
+    auto data = Database::connect()->find_person(name);
+
+    if (data.has_value()) {
+        auto [id, name, elo] = data.value();
+        name_ = name;
+        elo_ = elo;
+    } else {
+        Database::connect()->add_preson(name, elo);
+    }
+}
+
+Player::~Player()
+{
+    for (auto game : games)
+    {
+        auto [opponent, result, color, old_elo, opponent_elo] = game.second;
+        std::string white, black;
+        float result_1, result_2;
+        int elo_1, elo_2;
+
+        if (color == WHITE) {
+            white = name_;
+            black = game.first;
+            result_1 = result;
+            result_2 = opponent.lock()->result_of_game_with(name_);
+            elo_1 = old_elo;
+            elo_2 = opponent_elo;
+        } else {
+            white = game.first;
+            black = name_;
+            result_1 = opponent.lock()->result_of_game_with(name_);
+            result_2 = result;
+            elo_1 = opponent_elo;
+            elo_2 = old_elo;
+        }
+        Database::connect()->add_game_result(white, black, result_1, result_2, elo_1, elo_2);
+    }
+}
 
 void Player::add_game_result(ptr opponent, float result, int color)
 {
@@ -17,7 +58,7 @@ void Player::add_game_result(ptr opponent, float result, int color)
 
 void Player::remove_game_result(ptr opponent)
 {
-    if (!is_played_with(opponent)) {
+    if (!is_played_with(opponent->get_name())) {
         return;
     }
 
@@ -52,24 +93,24 @@ float Player::berger()
 {
     float b = 0;
     for (auto x : players) {
-        b += x.lock()->get_points() * result_of_game_with(x.lock());
+        b += x.lock()->get_points() * result_of_game_with(x.lock()->get_name());
     }
 
     return b;
 }
 
-bool Player::is_played_with(ptr opponent)
+bool Player::is_played_with(std::string opponent_name)
 {
-    return games.contains(opponent->get_name());
+    return games.contains(opponent_name);
 }
 
-float Player::result_of_game_with(ptr opponent)
+float Player::result_of_game_with(std::string opponent_name)
 {
-    if (!is_played_with(opponent)) {
+    if (!is_played_with(opponent_name)) {
         return 0;
     }
 
-    return std::get<1>(games[opponent->get_name()]);
+    return std::get<1>(games[opponent_name]);
 }
 
 std::string Player::get_name()

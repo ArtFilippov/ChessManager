@@ -6,6 +6,7 @@
 #include <vector>
 #include <map>
 #include <tuple>
+#include <optional>
 
 class Player
 {   
@@ -15,11 +16,12 @@ public:
     enum {BLACK, WHITE, UNKNOWN};
 
     Player(std::string name, int elo = 1000);
+    ~Player();
 
     void add_game_result(ptr opponent, float result, int color);
     void remove_game_result(ptr opponent);
-    float result_of_game_with(ptr opponent);
-    bool is_played_with(ptr opponent);
+    float result_of_game_with(std::string opponent_name);
+    bool is_played_with(std::string opponent_name);
     float buchholz(int truncation);
     float berger();
 
