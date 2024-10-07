@@ -117,8 +117,8 @@ class GameLine : public Line
     Player::ptr player_1;
     Player::ptr player_2;
 public:
-    GameLine(QWidget *parent, std::string s1, std::string s2, std::string s3, std::string s4);
-    GameLine(QWidget *parent, Player::ptr p1, Player::ptr p2);
+    GameLine(QWidget *parent, std::string s0, std::string s1, std::string s2, std::string s3, std::string s4);
+    GameLine(QWidget *parent, int num, Player::ptr p1, Player::ptr p2);
 
     Player::ptr on() override;
     Player::ptr off() override;

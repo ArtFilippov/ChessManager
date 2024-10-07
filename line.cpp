@@ -94,29 +94,36 @@ void RegLine::on_row()
 
 // GameLine
 
-GameLine::GameLine(QWidget *parent, std::string s1, std::string s2, std::string s3, std::string s4) : Line(parent), player_1(nullptr), player_2(nullptr), is_done(1)
+GameLine::GameLine(QWidget *parent, std::string s0, std::string s1, std::string s2, std::string s3, std::string s4) : Line(parent), player_1(nullptr), player_2(nullptr), is_done(1)
 {
+    row.push_back(dynamic_cast<QWidget*>(new QLabel(QString::fromStdString(s0))));
     row.push_back(dynamic_cast<QWidget*>(new QLabel(QString::fromStdString(s1))));
     row.push_back(dynamic_cast<QWidget*>(new QLabel(QString::fromStdString(s2))));
     row.push_back(dynamic_cast<QWidget*>(new QLabel(QString::fromStdString(s3))));
     row.push_back(dynamic_cast<QWidget*>(new QLabel(QString::fromStdString(s4))));
+
     layout->addWidget(row[0]);
     layout->addWidget(row[1]);
     layout->addWidget(row[2]);
     layout->addWidget(row[3]);
+    layout->addWidget(row[4]);
+
     this->setLayout(layout);
 }
 
-GameLine::GameLine(QWidget *parent, Player::ptr p1, Player::ptr p2) : Line(parent), player_1(p1), player_2(p2), is_done(0)
+GameLine::GameLine(QWidget *parent, int num, Player::ptr p1, Player::ptr p2) : Line(parent), player_1(p1), player_2(p2), is_done(0)
 {
+    row.push_back(dynamic_cast<QWidget*>(new QLabel(QString::fromStdString(std::to_string(num)))));
     row.push_back(dynamic_cast<QWidget*>(new QLabel(QString::fromStdString(player_1->get_name()))));
     row.push_back(dynamic_cast<QWidget*>(new QTextEdit));
     row.push_back(dynamic_cast<QWidget*>(new QTextEdit));
     row.push_back(dynamic_cast<QWidget*>(new QLabel(QString::fromStdString(player_2->get_name()))));
+
     layout->addWidget(row[0]);
     layout->addWidget(row[1]);
     layout->addWidget(row[2]);
     layout->addWidget(row[3]);
+    layout->addWidget(row[4]);
 
     this->setLayout(layout);
 }
@@ -191,10 +198,10 @@ Player::ptr GameLine::off()
 
 void GameLine::on_row()
 {
-    auto result_1 = dynamic_cast<QTextEdit*>(row[1]);
+    auto result_1 = dynamic_cast<QTextEdit*>(row[2]);
     result_1->setText(QString::fromStdString(std::to_string(player_1->result_of_game_with(player_2->get_name()))));
 
-    auto result_2 = dynamic_cast<QTextEdit*>(row[2]);
+    auto result_2 = dynamic_cast<QTextEdit*>(row[3]);
     result_2->setText(QString::fromStdString(std::to_string(player_2->result_of_game_with(player_1->get_name()))));
 
     Line::on_row();
@@ -202,7 +209,7 @@ void GameLine::on_row()
 
 void GameLine::off_row()
 {
-    for (size_t i = 1; i < 3; ++i) {
+    for (size_t i = 2; i < 4; ++i) {
         QWidget *new_widget = new QTextEdit;
 
         auto *old = layout->itemAt(i);
