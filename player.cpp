@@ -4,46 +4,32 @@
 
 #include <algorithm>
 #include <cmath>
+#include <iostream>
 
 Player::Player(std::string name, int elo) : name_(name), elo_(elo)
 {
-    auto data = Database::connect()->find_person(name);
+    try {
+        auto data = Database::connect()->find_person(name);
 
-    if (data.has_value()) {
-        auto [id, name, elo] = data.value();
-        name_ = name;
-        elo_ = elo;
-    } else {
-        Database::connect()->add_preson(name, elo);
+        if (data.has_value()) {
+            auto [id, name, elo] = data.value();
+            name_ = name;
+            elo_ = elo;
+        } else {
+            Database::connect()->add_preson(name, elo);
+        }
+    } catch (std::string e) {
+        std::cerr << e << std::endl;
     }
+
 }
 
 Player::~Player()
 {
-    for (auto game : games)
-    {
-        auto [opponent, result, color, old_elo, opponent_elo] = game.second;
-        std::string white, black;
-        float result_1, result_2;
-        int elo_1, elo_2;
-
-        if (color == WHITE) {
-            white = name_;
-            black = game.first;
-            result_1 = result;
-            result_2 = opponent.lock()->result_of_game_with(name_);
-            elo_1 = old_elo;
-            elo_2 = opponent_elo;
-        } else {
-            white = game.first;
-            black = name_;
-            result_1 = opponent.lock()->result_of_game_with(name_);
-            result_2 = result;
-            elo_1 = opponent_elo;
-            elo_2 = old_elo;
-        }
-
-        Database::connect()->add_game_result(white, black, result_1, result_2, elo_1, elo_2);
+    try {
+        Database::connect()->update_person(name_, elo_);
+    } catch (std::string e) {
+        std::cerr << e << std::endl;
     }
 }
 
