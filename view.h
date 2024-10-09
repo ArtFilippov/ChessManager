@@ -15,7 +15,7 @@ public:
     typedef std::shared_ptr<IView> ptr;
 
     virtual ~IView() = default;
-    virtual void show_pairs(std::vector<std::pair<Player::ptr, Player::ptr>>&) = 0;
+    virtual void show_pairs(std::vector<std::pair<Player::ptr, Player::ptr>>&, int round, int total_rounds) = 0;
     virtual void show_standings(std::vector<std::pair<Player::ptr, float>>&, int round, int total_rounds) = 0;
     virtual void start_adding_players() = 0;
     virtual void add_regline() = 0;
@@ -35,7 +35,7 @@ class View : public QWidget, public IView
     IServerView *server;
 public:
     View(QWidget *controller, std::string instruction);
-    void show_pairs(std::vector<std::pair<Player::ptr, Player::ptr>>&) override;
+    void show_pairs(std::vector<std::pair<Player::ptr, Player::ptr>>&, int round, int total_rounds) override;
     void show_standings(std::vector<std::pair<Player::ptr, float>>&, int round, int total_rounds) override;
     void start_adding_players() override;
     void restart(std::vector<Player::ptr>&) override;
@@ -45,7 +45,7 @@ public:
 private:
     void clear_rows();
     void show_adding_players();
-    void align_lines();
+    void align_lines(int from);
 public slots:
     void add_regline() override;
     void remove_line(Player::ptr) override;

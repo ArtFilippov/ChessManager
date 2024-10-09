@@ -81,7 +81,7 @@ bool RoundTournament::make_pairs()
         }
     }
 
-    view_->show_pairs(pairs);
+    view_->show_pairs(pairs, round, total_rounds_);
 
     ++round;
 

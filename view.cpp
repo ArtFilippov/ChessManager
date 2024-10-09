@@ -28,23 +28,27 @@ void View::start_adding_players()
     show_adding_players();
 }
 
-void View::show_pairs(std::vector<std::pair<Player::ptr, Player::ptr>> &pairs)
+void View::show_pairs(std::vector<std::pair<Player::ptr, Player::ptr>> &pairs, int round, int total_rounds)
 {
     clear_rows();
 
+    lines.push_back(Line::ptr(new TextLine(this, std::format("Round {}/{}", round, total_rounds))));
     lines.push_back(Line::ptr(new GameLine(this, "num", "Player name", "score", "score", "Player name")));
-    ILineButton *line = new GameLineButton(controller_, this, lines.back());
-    layout->insertWidget(0, line->widget());
-    line->hide_button();
+
+    ILineButton *line_1 = new GameLineButton(controller_, this, lines[1]);
+
+    layout->insertWidget(0, lines[0]->widget());
+    layout->insertWidget(1, line_1->widget());
+    line_1->hide_button();
 
     for (size_t i = 0; i < pairs.size(); ++i) {
         lines.push_back(Line::ptr(new GameLine(this, i + 1, pairs[i].first, pairs[i].second)));
         ILineButton *line = new GameLineButton(controller_, this, lines.back());
-        layout->insertWidget(i + 1, line->widget());
+        layout->insertWidget(i + 2, line->widget());
     }
 
     set_lines_height(0);
-    align_lines();
+    align_lines(1);
 
     server->show_pairs(pairs);
 }
@@ -150,12 +154,12 @@ void View::set_lines_height(int from)
     }
 }
 
-void View::align_lines()
+void View::align_lines(int from)
 {
     std::vector<std::size_t> sizes;
     lines[0]->get_sizes(sizes);
-    for (auto line : lines) {
-        line->set_sizes(sizes);
+    for (size_t i = from; i < lines.size(); ++i) {
+        lines[i]->set_sizes(sizes);
     }
 }
 
