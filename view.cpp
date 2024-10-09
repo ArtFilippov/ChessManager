@@ -30,8 +30,6 @@ void View::start_adding_players()
 
 void View::show_pairs(std::vector<std::pair<Player::ptr, Player::ptr>> &pairs)
 {
-    server->show_pairs(pairs);
-
     clear_rows();
 
     lines.push_back(Line::ptr(new GameLine(this, "num", "Player name", "score", "score", "Player name")));
@@ -47,12 +45,12 @@ void View::show_pairs(std::vector<std::pair<Player::ptr, Player::ptr>> &pairs)
 
     set_lines_height(0);
     align_lines();
+
+    server->show_pairs(pairs);
 }
 
 void View::show_standings(std::vector<std::pair<Player::ptr, float>> &player_and_coeff, int round, int total_rounds)
 {
-    server->show_standings(player_and_coeff, round, total_rounds);
-
     clear_rows();
 
     lines.push_back(Line::ptr(new TextLine(this, std::format("Standings {}/{}", round, total_rounds))));
@@ -66,6 +64,8 @@ void View::show_standings(std::vector<std::pair<Player::ptr, float>> &player_and
     }
 
     set_lines_height(0);
+
+    server->show_standings(player_and_coeff, round, total_rounds);
 }
 
 QWidget* View::widget()

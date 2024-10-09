@@ -1,7 +1,5 @@
 #include "server.h"
 
-#include <chrono>
-
 Server::Server(boost::asio::ip::tcp::endpoint ep) : acc(service, ep)
 {
     run();
@@ -36,14 +34,11 @@ void Server::handle_accept(TalkToClient::ptr client, const boost::system::error_
                                                      new_client, boost::placeholders::_1));
 }
 
-bool Server::new_page(std::string page)
+void Server::new_page(std::string page)
 {
-    using namespace std::chrono;
-    if (m.try_lock_for(100ms)) {
-        page_ = page;
-        return true;
-    }
-    return false;
+    std::lock_guard lg(m);
+
+    page_ = page;
 }
 
 void Server::run()

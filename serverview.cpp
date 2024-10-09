@@ -42,9 +42,7 @@ void ServerView::show_pairs(std::vector<std::pair<Player::ptr, Player::ptr>> &pa
 
     page += "</body></html>";
 
-    if (!server->new_page(page)) {
-        std::cerr << "page is not updated" << std::endl;
-    }
+    server->new_page(page);
 }
 
 void ServerView::show_standings(std::vector<std::pair<Player::ptr, float>> &player_and_coeff, int round, int total_rounds)
@@ -56,7 +54,5 @@ void ServerView::show_standings(std::vector<std::pair<Player::ptr, float>> &play
 
     page += "</body></html>";
 
-    if (!server->new_page(page)) {
-        std::cerr << "page is not updated" << std::endl;
-    }
+    server->new_page(page);
 }

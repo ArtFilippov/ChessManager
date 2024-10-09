@@ -16,7 +16,7 @@ class Server : public std::enable_shared_from_this<Server>, boost::noncopyable
     boost::asio::ip::tcp::acceptor acc;
 
     std::string page_{"<html><body><h1>Hello World</h1><p>This is a web server in c++</p></body></html>"};
-    std::timed_mutex m{};
+    std::mutex m{};
     std::thread t;
 
     Server(boost::asio::ip::tcp::endpoint ep);
@@ -25,7 +25,7 @@ public:
     static ptr create(boost::asio::ip::tcp::endpoint ep);
     ~Server();
 
-    bool new_page(std::string page);
+    void new_page(std::string page);
     void handle_accept(TalkToClient::ptr client, const boost::system::error_code &err);
     void run();
 private:
