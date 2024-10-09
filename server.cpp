@@ -2,7 +2,10 @@
 
 #include <chrono>
 
-Server::Server(boost::asio::ip::tcp::endpoint ep) : acc(service, ep) {}
+Server::Server(boost::asio::ip::tcp::endpoint ep) : acc(service, ep)
+{
+    run();
+}
 
 Server::~Server()
 {
@@ -27,7 +30,7 @@ void Server::handle_accept(TalkToClient::ptr client, const boost::system::error_
     TalkToClient::ptr new_client;
     {
         std::lock_guard lg(m);
-        new_client = TalkToClient::create(service, page_);
+        new_client = TalkToClient::create(service, response());
     }
     acc.async_accept(new_client->sock(), boost::bind(&Server::handle_accept, shared_from_this(),
                                                      new_client, boost::placeholders::_1));
@@ -53,10 +56,20 @@ void Server::run_thread()
     TalkToClient::ptr client;
     {
         std::lock_guard lg(m);
-        client = TalkToClient::create(service, page_);
+        client = TalkToClient::create(service, response());
     }
 
     acc.async_accept(client->sock(), boost::bind(&Server::handle_accept, shared_from_this(),
                                                  client, boost::placeholders::_1));
     service.run();
+}
+
+std::string Server::response()
+{
+    std::string response = "HTTP/1.1 200 OK\n"
+                           "content-type: text/html\n"
+                           "content-length: " + std::to_string(page_.length()) + "\n\n";
+    response += page_;
+
+    return response;
 }

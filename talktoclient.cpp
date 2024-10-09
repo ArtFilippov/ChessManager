@@ -46,4 +46,5 @@ void TalkToClient::on_write(const boost::system::error_code &err, size_t bytes)
     if (err) {
         std::cerr << "on_write: " << err.message() << std::endl;
     }
+    stop();
 }

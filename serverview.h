@@ -15,7 +15,7 @@ protected:
 
     QWidget *view;
 public:
-    IServerView();
+    IServerView(QWidget *parent);
     virtual ~IServerView() = default;
 
     QWidget* widget();
@@ -27,7 +27,7 @@ public:
 class ServerView : public IServerView
 {
 public:
-    ServerView();
+    ServerView(QWidget *parent);
     virtual ~ServerView() = default;
 
     void show_pairs(std::vector<std::pair<Player::ptr, Player::ptr>> &pairs) override;

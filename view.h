@@ -3,6 +3,7 @@
 
 #include "player.h"
 #include "line.h"
+#include "serverview.h"
 
 #include <QWidget>
 #include <memory>
@@ -30,6 +31,8 @@ class View : public QWidget, public IView
     std::vector<Line::ptr> lines{};
     QVBoxLayout* layout;
     QWidget *controller_;
+
+    IServerView *server;
 public:
     View(QWidget *controller, std::string instruction);
     void show_pairs(std::vector<std::pair<Player::ptr, Player::ptr>>&) override;

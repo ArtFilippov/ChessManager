@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <format>
 
-View::View(QWidget *controller, std::string instruction) : layout(new QVBoxLayout(this)), controller_(controller)
+View::View(QWidget *controller, std::string instruction) : layout(new QVBoxLayout(this)), controller_(controller), server(new ServerView(this))
 {
     lines.push_back(Line::ptr(new TextLine(this, instruction)));
 
@@ -14,7 +14,8 @@ View::View(QWidget *controller, std::string instruction) : layout(new QVBoxLayou
         layout->addWidget(x->widget());
     }
 
-    layout->addSpacerItem(new QSpacerItem(0, 500, QSizePolicy::Expanding));
+    layout->addWidget(server->widget());
+    layout->addSpacerItem(new QSpacerItem(0, 400, QSizePolicy::Expanding));
 
     this->setLayout(layout);
 }
@@ -29,6 +30,8 @@ void View::start_adding_players()
 
 void View::show_pairs(std::vector<std::pair<Player::ptr, Player::ptr>> &pairs)
 {
+    server->show_pairs(pairs);
+
     clear_rows();
 
     lines.push_back(Line::ptr(new GameLine(this, "num", "Player name", "score", "score", "Player name")));
@@ -48,6 +51,8 @@ void View::show_pairs(std::vector<std::pair<Player::ptr, Player::ptr>> &pairs)
 
 void View::show_standings(std::vector<std::pair<Player::ptr, float>> &player_and_coeff, int round, int total_rounds)
 {
+    server->show_standings(player_and_coeff, round, total_rounds);
+
     clear_rows();
 
     lines.push_back(Line::ptr(new TextLine(this, std::format("Standings {}/{}", round, total_rounds))));

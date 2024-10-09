@@ -15,7 +15,7 @@ class Server : public std::enable_shared_from_this<Server>, boost::noncopyable
     boost::asio::io_service service{};
     boost::asio::ip::tcp::acceptor acc;
 
-    std::string page_{"Hello, World!"};
+    std::string page_{"<html><body><h1>Hello World</h1><p>This is a web server in c++</p></body></html>"};
     std::timed_mutex m{};
     std::thread t;
 
@@ -30,6 +30,7 @@ public:
     void run();
 private:
     void run_thread();
+    std::string response();
 };
 
 #endif // SERVER_H
