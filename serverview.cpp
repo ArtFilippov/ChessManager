@@ -33,26 +33,48 @@ QWidget* IServerView::widget()
 // ServerView
 ServerView::ServerView(QWidget *parent) : IServerView(parent) {}
 
-void ServerView::show_pairs(std::vector<std::pair<Player::ptr, Player::ptr>> &pairs)
+void ServerView::show_pairs(std::vector<std::pair<Player::ptr, Player::ptr>> &pairs, int round, int total_rounds)
 {
-    std::string page = "<html><body>";
+    std::string page = std::format("<html><body><table><caption>Round {}/{}</caption>"
+                                   "<tr>"
+                                        "<th>Board</th>"
+                                        "<th>White</th>"
+                                        "<th>Black</th>"
+                                    "</tr>", round, total_rounds);
+
     for (size_t i = 0; i < pairs.size(); ++i) {
-        page += std::format("<p>{:3} {:50} {:50}</p>", i + 1, pairs[i].first->get_name(), pairs[i].second->get_name());
+        page += std::format("<tr><td>{}<\td>"
+                                "<td>{}<\td>"
+                                "<td>{}<\td></tr>", i + 1, pairs[i].first->get_name(), pairs[i].second->get_name());
     }
 
-    page += "</body></html>";
+    page += "</table></body></html>";
 
     server->new_page(page);
 }
 
 void ServerView::show_standings(std::vector<std::pair<Player::ptr, float>> &player_and_coeff, int round, int total_rounds)
 {
-    std::string page = std::format("<html><body><h1>Standings {}/{}</h1>", round, total_rounds);
+    std::string page = std::format("<html><body><table><caption>Round {}/{}</caption>"
+                                   "<tr>"
+                                       "<th>Num</th>"
+                                       "<th>Name</th>"
+                                       "<th>Points</th>"
+                                       "<th>coeff</th>"
+                                       "<th>elo</th>"
+                                   "</tr>", round, total_rounds);
+
     for (size_t i = 0; i < player_and_coeff.size(); ++i) {
-        page += std::format("<p>{:3} {:50} {:50}</p>", i + 1, player_and_coeff[i].first->get_name(), player_and_coeff[i].second);
+        page += std::format("<tr>"
+                                "<td>{}<\td>"
+                                "<td>{}<\td>"
+                                "<td>{}<\td>"
+                                "<td>{}<\td>"
+                                "<td>{}<\td>"
+                            "</tr>", i + 1, player_and_coeff[i].first->get_name(), player_and_coeff[i].first->get_points(), player_and_coeff[i].second, player_and_coeff[i].first->get_elo());
     }
 
-    page += "</body></html>";
+    page += "</table></body></html>";
 
     server->new_page(page);
 }

@@ -81,9 +81,9 @@ bool RoundTournament::make_pairs()
         }
     }
 
-    view_->show_pairs(pairs, round, total_rounds_);
-
     ++round;
+
+    view_->show_pairs(pairs, round, total_rounds_);
 
     if (players_.back()->get_name() == "pass") {
         players_.pop_back();

@@ -20,7 +20,7 @@ public:
 
     QWidget* widget();
 
-    virtual void show_pairs(std::vector<std::pair<Player::ptr, Player::ptr>> &pairs) = 0;
+    virtual void show_pairs(std::vector<std::pair<Player::ptr, Player::ptr>> &pairs, int round, int total_rounds) = 0;
     virtual void show_standings(std::vector<std::pair<Player::ptr, float>> &player_and_coeff, int round, int total_rounds) = 0;
 };
 
@@ -30,7 +30,7 @@ public:
     ServerView(QWidget *parent);
     virtual ~ServerView() = default;
 
-    void show_pairs(std::vector<std::pair<Player::ptr, Player::ptr>> &pairs) override;
+    void show_pairs(std::vector<std::pair<Player::ptr, Player::ptr>> &pairs, int round, int total_rounds) override;
     void show_standings(std::vector<std::pair<Player::ptr, float>> &player_and_coeff, int round, int total_rounds) override;
 };
 

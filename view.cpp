@@ -50,7 +50,7 @@ void View::show_pairs(std::vector<std::pair<Player::ptr, Player::ptr>> &pairs, i
     set_lines_height(0);
     align_lines(1);
 
-    server->show_pairs(pairs);
+    server->show_pairs(pairs, round, total_rounds);
 }
 
 void View::show_standings(std::vector<std::pair<Player::ptr, float>> &player_and_coeff, int round, int total_rounds)
@@ -157,7 +157,7 @@ void View::set_lines_height(int from)
 void View::align_lines(int from)
 {
     std::vector<std::size_t> sizes;
-    lines[0]->get_sizes(sizes);
+    lines[from]->get_sizes(sizes);
     for (size_t i = from; i < lines.size(); ++i) {
         lines[i]->set_sizes(sizes);
     }
