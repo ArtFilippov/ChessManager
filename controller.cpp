@@ -5,14 +5,16 @@
 
 #include <QMessageBox>
 
-Controller::Controller(QWidget *parent) : QWidget(parent), view(new View(this, "instruction")), settings(new QHBoxLayout), system(new QComboBox(this)), total_rounds(new QComboBox(this)),
+Controller::Controller(QWidget *parent) : QWidget(parent), view(new View(this, "")), settings(new QHBoxLayout), system(new QComboBox(this)), total_rounds(new QComboBox(this)),
     buttons(new QHBoxLayout), viewport(new QScrollArea(this))
 {
-    system->addItem("Swiss");
     system->addItem("Round");
+    system->addItem("Swiss");
 
     total_rounds->addItem("auto");
-    total_rounds->addItem("8");
+    for (int i = 5; i <= 15; ++i) {
+        total_rounds->addItem(QString::fromStdString(std::to_string(i)));
+    }
 
     settings->addWidget(system);
     settings->addWidget(new QLabel("system"));
@@ -130,6 +132,7 @@ ChessTournament::ptr Controller::make_tournament()
             return ChessTournament::ptr(new SwissTournament(view, std::stoi(total_rounds->currentText().toStdString())));
         }
     } else {
+        total_rounds->setCurrentIndex(0);
         return ChessTournament::ptr(new RoundTournament(view));
     }
 }

@@ -35,6 +35,7 @@ Player::~Player()
 
 void Player::add_game_result(ptr opponent, float result, int color)
 {
+    last_last_color = last_color;
     last_color = color;
     last_result = result;
 
@@ -143,3 +144,22 @@ int Player::elo_diff(int my_elo, int opponent_elo, float result)
 
     return int(diff);
 }
+
+int Player::get_last_color()
+{
+    return last_color;
+}
+
+bool Player::can_play(int color, int flags)
+{
+    if (flags & conditions::NO_TWO_COLORS) {
+        return last_color != color;
+    }
+
+    if (flags & conditions::NO_THREE_COLORS) {
+        return !(last_color == color && last_last_color == color);
+    }
+
+    return true;
+}
+
