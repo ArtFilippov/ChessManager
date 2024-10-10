@@ -17,9 +17,14 @@ IServerView::IServerView(QWidget *parent) : QWidget(parent)
     port = 3456;
     server = Server::create(boost::asio::ip::tcp::endpoint(boost::asio::ip::address::from_string(ip), port));
 
-    view = new QLabel(QString::fromStdString(std::format("If we are connected to the same network\n"
-                                                         "you can go to http://{}:{}\n"
-                                                         "and watch the tournament progress", ip, port)));
+    std::string view_string = "";
+    if (ip != "127.0.0.1") {
+        view_string = std::format("If we are connected to the same network\n"
+                                  "you can go to http://{}:{}\n"
+                                  "and watch the tournament progress", ip, port);
+    }
+
+    view = new QLabel(QString::fromStdString(view_string));
     dynamic_cast<QLabel*>(view)->setTextInteractionFlags(Qt::TextSelectableByMouse);
 
     QHBoxLayout *layout = new QHBoxLayout;

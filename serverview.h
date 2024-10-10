@@ -9,7 +9,7 @@
 class IServerView : public QWidget
 {
 protected:
-    std::string ip{};
+    std::string ip{"127.0.0.1"};
     int port{};
     Server::ptr server{};
 
